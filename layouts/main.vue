@@ -1,0 +1,186 @@
+<template>
+  <v-app style="background: #F2F2F2">
+    <v-navigation-drawer
+      v-model="drawer"
+      :mini-variant="miniVariant"
+      :clipped="clipped"
+      color="#0D3C67"
+      fixed
+      app
+    >
+      <v-list>
+        <v-list-item>
+          <v-list-item-action>
+            <v-btn icon @click.stop="miniVariant = !miniVariant">
+              <v-icon>mdi-menu</v-icon>
+            </v-btn>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-text>Beetter</v-text>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-divider class="mx-5 mb-3"></v-divider>
+      <v-list>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title dark v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-app-bar clipped-left clipped-right fixed app dark color="#FFFFFF">
+      <v-app-bar-nav-icon
+        class="hidden-sm-and-up"
+        @click.stop="drawer = !drawer"
+      />
+      <div class="navbar-space hidden-lg-and-down"></div>
+      <img src=/beeter-logo-dark.png class="mb-1" width="83px" height="25px"
+      @click="drawer = !drawer" />
+      <v-toolbar-title class="font-weight-medium" v-text="title" />
+      <v-spacer />
+      <v-btn icon @click="sheet = true">
+        <v-icon>mdi-dark mdi-plus</v-icon>
+      </v-btn>
+      <a style="color: #2C3144">{{ currentUserProps.name }}</a>
+      <v-btn icon to="/profile">
+        <v-icon>mdi-dark mdi-account-circle</v-icon>
+      </v-btn>
+      <div class="navbar-space hidden-lg-and-down"></div>
+    </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="rightDrawer"
+      :mini-variant="false"
+      :clipped="clipped"
+      width="236"
+      fixed
+      app
+      right
+      light
+    >
+      <template v-slot:prepend>
+        <v-list-item two-line>
+          <v-list-item-avatar> </v-list-item-avatar>
+          <img src: currentUserProps.avatar />
+          <v-list-item-content>
+            <v-list-item-title>Ini siapa bgsd</v-list-item-title>
+            <v-list-item-subtitle>Emailnya disini</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+
+      <v-divider></v-divider>
+
+      <v-list dense>
+        <v-list-item v-for="online in onlines" :key="online.name">
+          <v-list-item-content>
+            <v-list-item-title class="ml-3">{{
+              online.name
+            }}</v-list-item-title>
+          </v-list-item-content>
+          <div v-if="online.status" class="dotonline mr-5"></div>
+          <div v-if="!online.status" class="dotoffline mr-5"></div>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-content>
+      <v-container>
+        <nuxt />
+      </v-container>
+    </v-content>
+    <div class="fill-height">
+      <v-bottom-sheet v-model="sheet" inset>
+        <v-sheet class="text-center" height="200px" light>
+          <v-layout col justify-center>
+            <v-flex pt-5 mt-5 md4>
+              <v-text-field
+                color="primary"
+                label="Code"
+                name="teamcode"
+                prepend-icon="mdi-dark mdi-key"
+                type="text"
+                autofocus
+                @keyup.enter="sheet = !sheet"
+              ></v-text-field>
+              <v-btn>
+                JOIN
+              </v-btn>
+            </v-flex>
+          </v-layout>
+        </v-sheet>
+      </v-bottom-sheet>
+    </div>
+  </v-app>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      clipped: true,
+      drawer: true,
+      fixed: true,
+      sheet: false,
+      currentUserProps: [
+        {
+          name: 'ini nama',
+          email: 'ini email',
+          avatar: ''
+        }
+      ],
+      onlines: [
+        {
+          name: 'Sukajan',
+          to: '/profileMain',
+          status: true
+        },
+        {
+          name: 'Subkari',
+          to: '/',
+          status: false
+        }
+      ],
+      items: [
+        {
+          icon: '',
+          to: '',
+          title: ''
+        }
+      ],
+      miniVariant: true,
+      right: true,
+      rightDrawer: true,
+      userName: 'Username'
+    }
+  }
+}
+</script>
+
+<style scoped>
+.dotonline {
+  height: 10px;
+  width: 10px;
+  background-color: #65c508;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dotoffline {
+  height: 10px;
+  width: 10px;
+  background-color: #707070;
+  border-radius: 50%;
+  display: inline-block;
+}
+</style>

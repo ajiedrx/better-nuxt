@@ -1,0 +1,142 @@
+<template>
+  <v-container fluid>
+    <div class="text-center mt-5 pl-5">
+      <v-list-item-avatar size="120" justify-center>
+        <v-hover v-slot:default="{ hover }">
+          <v-img :src="image">
+            <v-expand-transition>
+              <div
+                v-if="hover"
+                class="d-flex transition-fast-out-fast-in grey darken-2 v-card--reveal display-3 white--text full text-center"
+              >
+                <v-btn
+                  icon
+                  text
+                  color="white"
+                  class="btn-update-profile"
+                  @click="onPickImage"
+                >
+                  <v-icon>mdi-camera</v-icon>
+                </v-btn>
+              </div>
+            </v-expand-transition></v-img
+          >
+        </v-hover>
+      </v-list-item-avatar>
+    </div>
+    <h2 class="text-center" style="color: #2C3144">Buddy</h2>
+    <p class=" text-center subheading" style="color: #2C3144">
+      buddy@buddy.com
+    </p>
+    <v-container>
+      <v-row class="justify-center">
+        <v-col cols="12" md="10">
+          <v-form v-model="profile" class="mt-5">
+            <v-card light>
+              <v-row class="pl-5 pt-5 pr-5">
+                <v-col>
+                  <v-text-field
+                    v-model="name"
+                    label="Name"
+                    append-icon="mdi-pencil"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="username"
+                    label="User name"
+                    append-icon="mdi-pencil"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="email"
+                    label="Email"
+                    append-icon="mdi-pencil"
+                  ></v-text-field>
+                </v-col>
+                <v-divider class="mx-4" vertical></v-divider>
+                <v-col>
+                  <v-row>
+                    <v-select
+                      v-model="select"
+                      class="pl-3 mr-2"
+                      style="width: 20px"
+                      :items="items"
+                      label="Item"
+                    ></v-select>
+                    <v-select
+                      v-model="select"
+                      class="pr-2"
+                      style="width: 40px"
+                      :items="items"
+                      label="Item"
+                    ></v-select>
+                    <v-select
+                      v-model="select"
+                      class="pr-3"
+                      :items="items"
+                      label="Gender"
+                    ></v-select>
+                  </v-row>
+                  <v-select
+                    v-model="gender"
+                    :items="items"
+                    label="Gender"
+                  ></v-select>
+                  <v-text-field
+                    v-model="password"
+                    label="Password"
+                    append-icon="mdi-pencil"
+                    type="password"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row class="justify-end">
+                <v-btn class="mr-2" color="#2D9CDB">SAVE</v-btn>
+                <v-btn class="mr-5 mb-3 pr-3">DISCARD</v-btn>
+              </v-row>
+            </v-card>
+          </v-form>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-container>
+</template>
+<script>
+export default {
+  props: {
+    name: {
+      type: String,
+      default: ''
+    },
+    role: {
+      type: String,
+      default: ''
+    },
+    image: {
+      type: String,
+      default: '/icon.png'
+    }
+  },
+  data: () => ({
+    items: ['item 1', 'item 2', 'item 3', 'item 4', 'item 5']
+  }),
+  methods: {
+    onPickImage() {
+      this.$refs.formUpdateProfile.click()
+    }
+    // onImagePicked(event) {
+    //   const file = event.target.files
+    //   console.log(file)
+    // }
+  }
+}
+</script>
+
+<style scoped>
+.full {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+.btn-update-profile {
+  margin: auto;
+}
+</style>
