@@ -34,9 +34,10 @@
                   class="align-self-center"
                   color="#2D9CDB"
                   style="width: 95%"
-                  @click="addUserToken"
-                  >{{ getUserToken }}</v-btn
+                  @click="formSubmit"
                 >
+                  Login
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -57,36 +58,38 @@ export default {
       return this.$store.state.userToken
     }
   },
-  methods: {
-    addUserToken() {
-      this.$store.commit('assign', 'a2n435b ')
-      this.$store.commit('assign', 'a56345fb')
-      console.log(this.$store.state.userToken)
-    }
-  },
+  // methods: {
+  //   addUserToken() {
+  //     this.$store.commit('assign', 'a2n435b')
+  //     this.$store.commit('assign', 'a56345fb')
+  //     console.log(this.$store.state.userToken)
+  //   }
+  // },
   // props: {
   //   source: String
   // },
-  layout: 'auth'
-  // methods: {
-  //   formSubmit(e) {
-  //     e.preventDefault()
-  //     const currentObj = this
-  //     let userToken = ''
-
-  //     this.axios
-  //       .post('http://192.168.0.103/api/login', {
-  //         username: this.username,
-  //         password: this.password
-  //       })
-  //       .then(function(response) {
-  //         currentObj.output = response.data
-  //         userToken = currentObj.output
-  //       })
-  //       .catch(function(error) {
-  //         currentObj.output = error
-  //       })
-  //   }
-  // }
+  layout: 'auth',
+  methods: {
+    // formSubmit(e) {
+    //   e.preventDefault()
+    //   const currentObj = this
+    //   // eslint-disable-next-line no-unused-vars
+    //   let usertoken = ''
+    //   // eslint-disable-next-line no-undef
+    //   this.$axios
+    //     .post('http://192.168.1.41:8000/api/auth/login', {
+    //       email: this.username,
+    //       password: this.password
+    //     })
+    //     .then(function(response) {
+    //       currentObj.output = response.data
+    //       usertoken = currentObj.output.token
+    //       this.$store.commit('assignToken', usertoken)
+    //     })
+    //     .catch(function(error) {
+    //       currentObj.output = error
+    //     })
+    // }
+  }
 }
 </script>

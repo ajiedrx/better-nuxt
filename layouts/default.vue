@@ -155,8 +155,7 @@ export default {
       ],
       miniVariant: true,
       right: true,
-      rightDrawer: false,
-      userName: this.$store.state.userToken
+      rightDrawer: false
     }
   }
 }

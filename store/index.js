@@ -1,11 +1,9 @@
 export const state = () => ({
-  userToken: []
+  isTeam: null
 })
 
 export const mutations = {
-  assign(state, { text }) {
-    state.userToken.push({
-      text
-    })
+  teamState(state, { boolean }) {
+    state.isTeam = boolean
   }
 }

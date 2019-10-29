@@ -53,28 +53,36 @@
                 </v-col>
                 <v-divider class="mx-4" vertical></v-divider>
                 <v-col>
-                  <v-row>
-                    <v-select
-                      v-model="select"
-                      class="pl-3 mr-2"
-                      style="width: 20px"
-                      :items="items"
-                      label="Item"
-                    ></v-select>
-                    <v-select
-                      v-model="select"
-                      class="pr-2"
-                      style="width: 40px"
-                      :items="items"
-                      label="Item"
-                    ></v-select>
-                    <v-select
-                      v-model="select"
-                      class="pr-3"
-                      :items="items"
-                      label="Gender"
-                    ></v-select>
-                  </v-row>
+                  <v-dialog
+                    ref="dialog"
+                    v-model="modal"
+                    :return-value.sync="date"
+                    persistent
+                    width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="date"
+                        label="Pick date"
+                        append-icon="mdi-calendar"
+                        readonly
+                        light
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date" scrollable light>
+                      <v-spacer></v-spacer>
+                      <v-btn text color="primary" @click="modal = false"
+                        >Cancel</v-btn
+                      >
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.dialog.save(date)"
+                        >OK</v-btn
+                      >
+                    </v-date-picker>
+                  </v-dialog>
                   <v-select
                     v-model="gender"
                     :items="items"
@@ -116,7 +124,9 @@ export default {
     }
   },
   data: () => ({
-    items: ['item 1', 'item 2', 'item 3', 'item 4', 'item 5']
+    items: ['item 1', 'item 2', 'item 3', 'item 4', 'item 5'],
+    date: new Date().toISOString().substr(0, 10),
+    modal: false
   }),
   methods: {
     onPickImage() {

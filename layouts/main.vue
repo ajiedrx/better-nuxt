@@ -45,7 +45,7 @@
         @click.stop="drawer = !drawer"
       />
       <div class="navbar-space hidden-lg-and-down"></div>
-      <img src=/beeter-logo-dark.png class="mb-1" width="83px" height="25px"
+      <img src=/beeter-logo-dark.png class="mb-1" width="87px" height="25px"
       @click="drawer = !drawer" />
       <v-toolbar-title class="font-weight-medium" v-text="title" />
       <v-spacer />
@@ -71,11 +71,14 @@
     >
       <template v-slot:prepend>
         <v-list-item two-line>
-          <v-list-item-avatar> </v-list-item-avatar>
-          <img src: currentUserProps.avatar />
+          <v-list-item-avatar>
+            <img src: currentUserProps.avatar />
+          </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>Ini siapa bgsd</v-list-item-title>
-            <v-list-item-subtitle>Emailnya disini</v-list-item-subtitle>
+            <v-list-item-title>{{ currentUserProps.name }}</v-list-item-title>
+            <v-list-item-subtitle>{{
+              currentUserProps.email
+            }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -133,13 +136,11 @@ export default {
       drawer: true,
       fixed: true,
       sheet: false,
-      currentUserProps: [
-        {
-          name: 'ini nama',
-          email: 'ini email',
-          avatar: ''
-        }
-      ],
+      currentUserProps: {
+        name: 'Username',
+        email: 'Email',
+        avatar: ''
+      },
       onlines: [
         {
           name: 'Sukajan',
@@ -154,9 +155,64 @@ export default {
       ],
       items: [
         {
+          icon: 'mdi-home',
+          to: '/mainindex',
+          title: 'Home'
+        },
+        {
+          icon: 'mdi-account',
+          to: '/profileMain',
+          title: 'Profile'
+        },
+        {
+          icon: 'mdi-clipboard-check',
+          to: '/dailyreport',
+          title: 'Daily Report'
+        },
+        {
+          icon: 'mdi-gift',
+          to: '/reward',
+          title: 'Reward'
+        },
+        {
+          icon: 'mdi-chat',
+          to: '/chat',
+          title: 'Chat'
+        },
+        {
+          icon: 'mdi-group',
+          to: '/team',
+          title: 'Team'
+        },
+        {
+          icon: 'mdi-clock',
+          to: '/timeconsume',
+          title: 'Time Consume'
+        },
+        {
+          icon: 'mdi-timer',
+          to: '/productivity',
+          title: 'Productivity'
+        },
+        {
           icon: '',
           to: '',
           title: ''
+        },
+        {
+          icon: '',
+          to: '',
+          title: ''
+        },
+        {
+          icon: 'mdi-settings',
+          to: '/settings',
+          title: 'Settings'
+        },
+        {
+          icon: 'mdi-exit-to-app',
+          to: '/',
+          title: 'Exit'
         }
       ],
       miniVariant: true,
