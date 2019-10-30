@@ -95,7 +95,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <a color="primary">{{ userName }}</a>
+      <a color="primary"> Fulan </a>
       <v-btn icon to="/profile">
         <v-icon>mdi-dark mdi-account-circle</v-icon>
       </v-btn>

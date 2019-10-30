@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <h3 style="color: #1592E6">REWARD</h3>
+      <h3 style="color: #1592E6">DAILY REPORT</h3>
     </v-row>
     <DatepickerComponent />
     <v-data-table
@@ -13,30 +13,32 @@
       light
     >
     </v-data-table>
-    <v-row v-else>
-      <v-col cols="12">
-        <v-card
-          color="#2D9CDB"
-          flat
-          style="border-radius: 10px"
-          class="fill-height"
-          min-height="485"
-          hover
-        >
-          <v-container fill-height text-center>
-            <v-layout align-center>
-              <v-flex class="display-1">REWARD</v-flex>
-            </v-layout>
-          </v-container>
-        </v-card>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 <script>
 export default {
-  layout: 'main',
+  layout: 'mainPM',
   data: () => ({
+    date: new Date().toISOString().substr(0, 10),
+    modal: false,
+    reports: [
+      {
+        avatar: '',
+        name: 'Ajie DR',
+        time: '23.09',
+        done: 'Im done with you',
+        plan: 'Looking for the other',
+        obstacle: 'Umm'
+      },
+      {
+        avatar: '',
+        name: 'Daegal P',
+        time: '21.45',
+        done: 'Hiyahiyahiyaa',
+        plan: 'Wikwikwik',
+        obstacle: 'Nganu'
+      }
+    ],
     headers: [
       {
         text: 'Dessert (100g serving)',

@@ -5,7 +5,7 @@
         <v-card light hover flat style="border-radius: 10px">
           <v-card-title append-icon="mdi-gifts">Reward</v-card-title>
           <v-card-text class="text-center"><h1>89</h1></v-card-text>
-          <v-card-text>Total reward</v-card-text>
+          <v-card-text>Overall employee total reward</v-card-text>
         </v-card>
       </v-col>
       <v-col>
@@ -23,7 +23,7 @@
           <v-card-text class="text-center">
             <h1>132</h1>
           </v-card-text>
-          <v-card-text>Overall productive time (hours)</v-card-text>
+          <v-card-text>Overall employee productive time (hours)</v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -108,10 +108,10 @@
 
 <script>
 export default {
-  layout: 'main',
+  layout: 'mainPM',
   data: () => ({
-    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    value: [200, 675, 410, 390, 310]
+    labels: ['12am', '3am', '6am', '9am', '12pm', '3pm', '6pm', '9pm'],
+    value: [200, 675, 410, 390, 310, 460, 250, 240]
   })
 }
 </script>

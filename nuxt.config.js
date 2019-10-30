@@ -30,7 +30,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/component-register'],
+  plugins: [
+    { src: '@/plugins/chart', ssr: false },
+    '~/plugins/component-register'
+  ],
+
   /*
    ** Nuxt.js dev-modules
    */

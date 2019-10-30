@@ -49,7 +49,7 @@
       @click="drawer = !drawer" />
       <v-toolbar-title class="font-weight-medium" v-text="title" />
       <v-spacer />
-      <v-btn icon to="/profileMain">
+      <v-btn icon to="/profileMainPM">
         <v-icon>mdi-dark mdi-account-circle</v-icon>
       </v-btn>
       <div class="navbar-space hidden-lg-and-down"></div>
@@ -71,10 +71,10 @@
             <img src="/icon.png" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>Fulan</v-list-item-title>
-            <v-list-item-subtitle>
-              fulan@beetter.com
-            </v-list-item-subtitle>
+            <v-list-item-title>{{ currentUserProps.name }}</v-list-item-title>
+            <v-list-item-subtitle>{{
+              currentUserProps.email
+            }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -152,37 +152,37 @@ export default {
       items: [
         {
           icon: 'mdi-home',
-          to: '/mainindex',
+          to: '/mainindexPM',
           title: 'Home'
         },
         {
           icon: 'mdi-account',
-          to: '/profileMain',
+          to: '/profileMainPM',
           title: 'Profile'
         },
         {
           icon: 'mdi-clipboard-check',
-          to: '/dailyreport',
+          to: '/dailyreportPM',
           title: 'Daily Report'
         },
         {
           icon: 'mdi-gift',
-          to: '/reward',
+          to: '/rewardPM',
           title: 'Reward'
         },
         {
           icon: 'mdi-chat',
-          to: '/chat',
+          to: '/chatPM',
           title: 'Chat'
         },
         {
           icon: 'mdi-clock',
-          to: '/timeconsume',
+          to: '/timeconsumePM',
           title: 'Time Consume'
         },
         {
           icon: 'mdi-timer',
-          to: '/productivity',
+          to: '/productivityPM',
           title: 'Productivity'
         },
         {
@@ -201,9 +201,9 @@ export default {
           title: ''
         },
         {
-          icon: 'mdi-settings',
-          to: '/settings',
-          title: 'Settings'
+          icon: '',
+          to: '',
+          title: ''
         },
         {
           icon: 'mdi-exit-to-app',

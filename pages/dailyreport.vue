@@ -4,10 +4,10 @@
       <h3 style="color: #1592E6">DAILY REPORT</h3>
     </v-row>
     <DatepickerComponent />
-    <v-row>
+    <v-row dense>
       <v-col v-for="report in reports" :key="report.name" cols="12">
         <v-card class="pb-3 pl-2 mx-5" min-height="150" light>
-          <v-row class="ml-2" align="center">
+          <v-row class="ml-2" align="center" dense no-gutters>
             <v-col>
               <v-list class="pb-0">
                 <v-list-item>
@@ -24,7 +24,7 @@
               <v-card-text class="pt-0">{{ report.time }}</v-card-text>
             </v-col>
           </v-row>
-          <v-container class="pt-0">
+          <v-container class="pt-0" dense>
             <v-subheader light>Done :</v-subheader>
             <div class="ml-5 pl-5">{{ report.done }}</div>
             <v-subheader light>Plan :</v-subheader>

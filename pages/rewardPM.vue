@@ -5,7 +5,6 @@
     </v-row>
     <DatepickerComponent />
     <v-data-table
-      v-if="this.$store.state.isPm"
       :headers="headers"
       :items="desserts"
       :items-per-page="5"
@@ -13,7 +12,7 @@
       light
     >
     </v-data-table>
-    <v-row v-else>
+    <!-- <v-row>
       <v-col cols="12">
         <v-card
           color="#2D9CDB"
@@ -30,12 +29,12 @@
           </v-container>
         </v-card>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
 <script>
 export default {
-  layout: 'main',
+  layout: 'mainPM',
   data: () => ({
     headers: [
       {

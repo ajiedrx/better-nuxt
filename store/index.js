@@ -1,9 +1,9 @@
 export const state = () => ({
-  isTeam: null
+  isPm: 'false'
 })
 
 export const mutations = {
-  teamState(state, { boolean }) {
-    state.isTeam = boolean
+  setPMState(state, { text }) {
+    state.isPm = text
   }
 }

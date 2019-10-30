@@ -1,11 +1,10 @@
 <template>
   <v-container>
     <v-row>
-      <h3 style="color: #1592E6">REWARD</h3>
+      <h3 style="color: #1592E6">PRODUCTIVITY</h3>
     </v-row>
     <DatepickerComponent />
     <v-data-table
-      v-if="this.$store.state.isPm"
       :headers="headers"
       :items="desserts"
       :items-per-page="5"
@@ -13,29 +12,11 @@
       light
     >
     </v-data-table>
-    <v-row v-else>
-      <v-col cols="12">
-        <v-card
-          color="#2D9CDB"
-          flat
-          style="border-radius: 10px"
-          class="fill-height"
-          min-height="485"
-          hover
-        >
-          <v-container fill-height text-center>
-            <v-layout align-center>
-              <v-flex class="display-1">REWARD</v-flex>
-            </v-layout>
-          </v-container>
-        </v-card>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 <script>
 export default {
-  layout: 'main',
+  layout: 'mainPM',
   data: () => ({
     headers: [
       {

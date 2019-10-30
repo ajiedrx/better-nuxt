@@ -36,7 +36,7 @@
 </template>
 <script>
 export default {
-  layout: 'main',
+  layout: 'mainPM',
   data() {
     return {
       teamProps: [
