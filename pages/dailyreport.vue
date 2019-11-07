@@ -48,17 +48,17 @@ export default {
         avatar: '',
         name: 'Ajie DR',
         time: '23.09',
-        done: 'Im done with you',
-        plan: 'Looking for the other',
-        obstacle: 'Umm'
+        done: 'Chat feature',
+        plan: 'Fixing dashboard',
+        obstacle: '-'
       },
       {
         avatar: '',
         name: 'Daegal P',
         time: '21.45',
-        done: 'Hiyahiyahiyaa',
-        plan: 'Wikwikwik',
-        obstacle: 'Nganu'
+        done: 'Fixed some apis',
+        plan: 'Fixing another apis',
+        obstacle: '-'
       }
     ]
   })

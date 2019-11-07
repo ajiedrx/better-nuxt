@@ -139,14 +139,39 @@ export default {
       },
       onlines: [
         {
-          name: 'Sukajan',
+          name: 'Daegal P',
           to: '/profileMain',
           status: true
         },
         {
-          name: 'Subkari',
+          name: 'Ajie DR',
+          to: '/',
+          status: true
+        },
+        {
+          name: 'Aldi Izzaldi',
+          to: '/',
+          status: true
+        },
+        {
+          name: 'Sherly Maya',
           to: '/',
           status: false
+        },
+        {
+          name: 'Astin IC',
+          to: '/',
+          status: true
+        },
+        {
+          name: 'M Aliffiansyah',
+          to: '/',
+          status: false
+        },
+        {
+          name: 'Wifda Muna',
+          to: '/',
+          status: true
         }
       ],
       items: [

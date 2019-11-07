@@ -4,7 +4,7 @@
       <h3 style="color: #1592E6">REWARD</h3>
     </v-row>
     <DatepickerComponent />
-    <v-data-table
+    <!-- <v-data-table
       v-if="this.$store.state.isPm"
       :headers="headers"
       :items="desserts"
@@ -12,8 +12,8 @@
       class="elevation-1"
       light
     >
-    </v-data-table>
-    <v-row v-else>
+    </v-data-table> -->
+    <v-row>
       <v-col cols="12">
         <v-card
           color="#2D9CDB"

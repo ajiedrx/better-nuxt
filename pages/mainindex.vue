@@ -1,5 +1,47 @@
 <template>
   <v-container>
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <v-card light>
+          <v-card-title class="justify-center">
+            <span class="headline">Daily Report</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field label="Done" required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Plan"
+                    type="text"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Obstacle"
+                    type="text"
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              class="text-center"
+              color="blue darken-1"
+              text
+              @click="dialog = false"
+              >SUBMIT</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
     <v-row id="firstRow">
       <v-col>
         <v-card light hover flat style="border-radius: 10px">
@@ -111,7 +153,8 @@ export default {
   layout: 'main',
   data: () => ({
     labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    value: [200, 675, 410, 390, 310]
+    value: [200, 675, 410, 390, 310],
+    dialog: true
   })
 }
 </script>

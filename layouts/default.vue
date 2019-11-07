@@ -120,7 +120,7 @@
                 autofocus
                 @keyup.enter="sheet = !sheet"
               ></v-text-field>
-              <v-btn>
+              <v-btn @click="sheet = !sheet">
                 JOIN
               </v-btn>
             </v-flex>

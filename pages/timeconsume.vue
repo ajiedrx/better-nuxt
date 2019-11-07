@@ -5,8 +5,8 @@
     </v-row>
     <DatepickerComponent />
 
-    <v-row v-if="!pm">
-      <a @click="pm = true">BACK</a>
+    <v-row>
+      <!-- <a @click="pm = true">BACK</a> -->
       <v-col cols="12">
         <v-card light flat>
           <v-row>
@@ -38,7 +38,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-data-table
+    <!-- <v-data-table
       v-else
       :headers="headers"
       :items="desserts"
@@ -49,7 +49,7 @@
       <template v-slot:item.action="{ item }">
         <a @click="itemDetails(item)">DETAILS</a>
       </template>
-    </v-data-table>
+    </v-data-table> -->
   </v-container>
 </template>
 <script>

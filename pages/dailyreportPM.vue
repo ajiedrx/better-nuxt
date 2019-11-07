@@ -4,15 +4,72 @@
       <h3 style="color: #1592E6">DAILY REPORT</h3>
     </v-row>
     <DatepickerComponent />
-    <v-data-table
-      v-if="this.$store.state.isPm"
-      :headers="headers"
-      :items="desserts"
-      :items-per-page="5"
-      class="elevation-1"
-      light
-    >
-    </v-data-table>
+    <v-card>
+      <v-tabs v-model="tab" light left icons-and-text>
+        <v-tabs-slider></v-tabs-slider>
+
+        <v-tab href="#tab-1">
+          LOG
+        </v-tab>
+
+        <v-tab href="#tab-2">
+          COMPLETION STATUS
+        </v-tab>
+      </v-tabs>
+
+      <v-tabs-items v-model="tab">
+        <v-tab-item :value="'tab-' + 1">
+          <v-card light flat tile>
+            <v-row dense>
+              <v-col v-for="report in reports" :key="report.name" cols="12">
+                <v-card class="pb-3 pl-2 mx-5" min-height="150" light>
+                  <v-row class="ml-2" align="center" dense no-gutters>
+                    <v-col>
+                      <v-list class="pb-0">
+                        <v-list-item>
+                          <v-list-item-avatar class="mr-0">
+                            <v-avatar color="primary"> </v-avatar>
+                          </v-list-item-avatar>
+                          <v-list-item-content>
+                            <v-card-text>{{ report.name }}</v-card-text>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </v-list>
+                    </v-col>
+                    <v-col class="pt-0 mr-3" align="end">
+                      <v-card-text class="pt-0">{{ report.time }}</v-card-text>
+                    </v-col>
+                  </v-row>
+                  <v-container class="pt-0" dense>
+                    <v-subheader light>Done :</v-subheader>
+                    <div class="ml-5 pl-5">{{ report.done }}</div>
+                    <v-subheader light>Plan :</v-subheader>
+                    <div class="ml-5 pl-5">{{ report.plan }}</div>
+                    <v-subheader light>Obstacle :</v-subheader>
+                    <div class="ml-5 pl-5">{{ report.obstacle }}</div>
+                  </v-container>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item :value="'tab-' + 2">
+          <v-card light flat tile>
+            <v-data-table
+              :headers="headers"
+              :items="desserts"
+              :items-per-page="5"
+              class="elevation-1"
+              light
+            >
+              <template v-slot:item.action="{ item }">
+                <a @click="itemDetails(item)">DETAILS</a>
+              </template>
+            </v-data-table>
+          </v-card>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-card>
   </v-container>
 </template>
 <script>
@@ -21,6 +78,8 @@ export default {
   data: () => ({
     date: new Date().toISOString().substr(0, 10),
     modal: false,
+    tab: null,
+    detail: true,
     reports: [
       {
         avatar: '',
@@ -41,99 +100,63 @@ export default {
     ],
     headers: [
       {
-        text: 'Dessert (100g serving)',
+        text: 'Name',
         align: 'left',
         sortable: false,
         value: 'name'
       },
-      { text: 'Calories', value: 'calories' },
-      { text: 'Fat (g)', value: 'fat' },
-      { text: 'Carbs (g)', value: 'carbs' },
-      { text: 'Protein (g)', value: 'protein' },
-      { text: 'Iron (%)', value: 'iron' }
+      { text: 'Date', value: 'date' },
+      { text: 'Time', value: 'time' },
+      { text: 'Status', value: 'status' },
+      { text: 'Actions', value: 'action', sortable: false }
     ],
     desserts: [
       {
-        name: 'Frozen Yogurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
+        name: 'Wifda Muna',
+        date: '26/10/19',
+        time: '14.00',
+        status: 'COMPLETED',
         protein: 4.0,
         iron: '1%'
       },
       {
-        name: 'Ice cream sandwich',
-        calories: 237,
-        fat: 9.0,
-        carbs: 37,
-        protein: 4.3,
+        name: 'Sherly Maya',
+        date: '26/10/19',
+        time: '12.00',
+        status: 'COMPLETED',
+        protein: 4.0,
         iron: '1%'
       },
       {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 23,
-        protein: 6.0,
-        iron: '7%'
+        name: 'Daegal Prayoga',
+        date: '26/10/19',
+        time: '14.05',
+        status: 'COMPLETED',
+        protein: 4.0,
+        iron: '1%'
       },
       {
-        name: 'Cupcake',
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3,
-        iron: '8%'
+        name: 'Adli Izzaldi',
+        date: '26/10/19',
+        time: '13.00',
+        status: 'COMPLETED',
+        protein: 4.0,
+        iron: '1%'
       },
       {
-        name: 'Gingerbread',
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-        iron: '16%'
-      },
-      {
-        name: 'Jelly bean',
-        calories: 375,
-        fat: 0.0,
-        carbs: 94,
-        protein: 0.0,
-        iron: '0%'
-      },
-      {
-        name: 'Lollipop',
-        calories: 392,
-        fat: 0.2,
-        carbs: 98,
-        protein: 0,
-        iron: '2%'
-      },
-      {
-        name: 'Honeycomb',
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5,
-        iron: '45%'
-      },
-      {
-        name: 'Donut',
-        calories: 452,
-        fat: 25.0,
-        carbs: 51,
-        protein: 4.9,
-        iron: '22%'
-      },
-      {
-        name: 'KitKat',
-        calories: 518,
-        fat: 26.0,
-        carbs: 65,
-        protein: 7,
-        iron: '6%'
+        name: 'Ajie DR',
+        date: '26/10/19',
+        time: '13.05',
+        status: 'COMPLETED',
+        protein: 4.0,
+        iron: '1%'
       }
-    ]
+    ],
+    itemDetails(item) {
+      this.editedIndex = this.desserts.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.detail = true
+    }
   })
 }
 </script>
