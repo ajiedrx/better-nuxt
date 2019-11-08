@@ -5,10 +5,13 @@ import actions from './actions'
 const state = () => ({
   previousRoute: null,
   user: {
-    name: '',
-    image: '',
-    email: ''
-  }
+    name: 'Bahrul Amaruddin',
+    role: 2,
+    image: '/user.png'
+  },
+  semester: null,
+  year: null,
+  token: null
 })
 
 export default {

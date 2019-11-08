@@ -12,7 +12,7 @@
               <v-card-text>
                 <v-form>
                   <v-text-field
-                    v-model="username"
+                    v-model="email"
                     color="primary"
                     label="Login"
                     name="login"
@@ -50,14 +50,17 @@
 <script>
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 export default {
-  data: () => ({
-    drawer: null
-  }),
-  computed: {
-    getUserToken() {
-      return this.$store.state.userToken
+  data() {
+    return {
+      usertoken: '',
+      drawer: null
     }
   },
+  // computed: {
+  //   getUserToken() {
+  //     return this.$store.state.userToken
+  //   }
+  // },
   // methods: {
   //   addUserToken() {
   //     this.$store.commit('assign', 'a2n435b')
@@ -70,26 +73,53 @@ export default {
   // },
   layout: 'auth',
   methods: {
-    // formSubmit(e) {
-    //   e.preventDefault()
-    //   const currentObj = this
-    //   // eslint-disable-next-line no-unused-vars
-    //   let usertoken = ''
-    //   // eslint-disable-next-line no-undef
-    //   this.$axios
-    //     .post('http://192.168.1.41:8000/api/auth/login', {
-    //       email: this.username,
-    //       password: this.password
-    //     })
-    //     .then(function(response) {
-    //       currentObj.output = response.data
-    //       usertoken = currentObj.output.token
-    //       this.$store.commit('assignToken', usertoken)
-    //     })
-    //     .catch(function(error) {
-    //       currentObj.output = error
-    //     })
-    // }
+    formSubmit(e) {
+      this.$auth
+        .loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password
+          }
+        })
+        .then((response) => {
+          if (this.$auth.loggedIn) {
+            this.$router.push('/')
+          }
+        })
+      // e.preventDefault()
+      // this.$axios
+      //   .post('login', {
+      //     email: this.email,
+      //     password: this.password
+      //   })
+      //   .then((response) => {
+      //     this.$store.commit('SET_USER_TOKEN', response.data.success.token)
+      //     console.log(this.$store.state.token)
+      //     this.usertoken = 'Bearer ' + this.$store.state.token
+      //     console.log(this.usertoken)
+      //   })
+      //   .catch(function(error) {
+      //     console.log(error)
+      //   })
+    },
+    formCheck(e) {
+      console.log(this.usertoken)
+      e.preventDefault()
+      this.$axios
+        .post('details', [], {
+          headers: {
+            'Content-Type': 'application/json',
+            // eslint-disable-next-line prettier/prettier
+            'Authorization': this.usertoken
+          }
+        })
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }
 }
 </script>

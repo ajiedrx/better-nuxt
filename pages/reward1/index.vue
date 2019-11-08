@@ -11,8 +11,8 @@
       :items-per-page="5"
       class="elevation-1"
       light
-    > -->
-    <!-- </v-data-table> -->
+    >
+    </v-data-table> -->
     <v-row>
       <v-col cols="12">
         <v-card

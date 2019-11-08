@@ -64,7 +64,13 @@
 
         <v-list>
           <v-list-item @click="sheet = true">Join Team</v-list-item>
-          <v-list-item @click="dialog = true">Create Team</v-list-item>
+          <v-list-item
+            @click="
+              dialog = true
+              randomCode()
+            "
+            >Create Team</v-list-item
+          >
         </v-list>
       </v-menu>
       <v-dialog v-model="dialog" max-width="290">
@@ -72,12 +78,14 @@
           <v-card-title class="justify-center">CREATE TEAM</v-card-title>
           <v-divider class="mx-5"></v-divider>
           <v-text-field
+            v-model="room_name"
             class=" mb-0 mt-5 ml-5 mr-5 pt-5 pr-5 pl-5"
             label="Team name"
             append-icon="mdi-group"
             autofocus
           ></v-text-field>
           <v-text-field
+            v-model="business_hour_start"
             class="ml-5 mr-5 pt-5 pr-5 pl-5"
             label="Working Time"
             append-icon="mdi-clock"
@@ -85,11 +93,17 @@
           <v-text-field
             class="ml-5 mr-5 pt-5 pr-5 pl-5"
             label="Code"
+            :value="room_code"
             append-icon="mdi-key"
-            readonly
+            disabled
           ></v-text-field>
           <v-card-actions class="justify-center">
-            <v-btn @click="random = true">
+            <v-btn
+              @click="
+                random = true
+                createTeam()
+              "
+            >
               CREATE
             </v-btn>
           </v-card-actions>
@@ -120,7 +134,12 @@
                 autofocus
                 @keyup.enter="sheet = !sheet"
               ></v-text-field>
-              <v-btn @click="sheet = !sheet">
+              <v-btn
+                @click="
+                  sheet = !sheet
+                  joinTeam()
+                "
+              >
                 JOIN
               </v-btn>
             </v-flex>
@@ -135,6 +154,10 @@
 export default {
   data() {
     return {
+      business_hour_start: '08:00:00',
+      business_hour_end: '20:00:00',
+      role: 2,
+      room_code: '',
       clipped: true,
       drawer: true,
       fixed: true,
@@ -156,6 +179,50 @@ export default {
       miniVariant: true,
       right: true,
       rightDrawer: false
+    }
+  },
+  // created() {
+  //   this.randomCode()
+  // },
+  methods: {
+    randomCode() {
+      const characters =
+        'qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM'
+      for (let i = 0; i < 10; i++) {
+        this.room_code += characters.charAt(Math.floor(Math.random() * 52))
+      }
+      console.log(this.room_code)
+      return this.room_code
+    },
+    createTeam() {
+      this.$axios
+        .post('team', {
+          room_name: this.room_name,
+          room_code: this.room_code,
+          business_hour_start: this.business_hour_start,
+          business_hour_end: this.business_hour_end
+        })
+        .then((response) => {
+          console.log(this.room_code)
+          console.log(this.room_name)
+          console.log(response)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    },
+    joinTeam() {
+      this.$axios
+        .post('team/join', {
+          room_code: this.room_code,
+          role: this.role
+        })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
     }
   }
 }

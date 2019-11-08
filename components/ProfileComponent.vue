@@ -99,6 +99,9 @@
               <v-row class="justify-end">
                 <v-btn class="mr-2" color="#2D9CDB">SAVE</v-btn>
                 <v-btn class="mr-5 mb-3 pr-3">DISCARD</v-btn>
+                <v-btn class="mr-5 mb-3 pr-3" color="red" @click="logout"
+                  >LOGOUT</v-btn
+                >
               </v-row>
             </v-card>
           </v-form>
@@ -135,6 +138,9 @@ export default {
     onImagePicked(event) {
       const file = event.target.files
       console.log(file)
+    },
+    logout() {
+      this.$auth.logout()
     }
   }
 }
