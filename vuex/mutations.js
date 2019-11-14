@@ -11,5 +11,8 @@ export default {
   },
   [types.SET_USER_TOKEN]: (state, payload) => {
     state.token = payload
+  },
+  [types.SET_PM_FLAG]: (state, payload) => {
+    state.pmFlag = payload
   }
 }

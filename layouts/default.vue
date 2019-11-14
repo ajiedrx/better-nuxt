@@ -213,7 +213,7 @@ export default {
     },
     joinTeam() {
       this.$axios
-        .post('team/join', {
+        .post('team', {
           room_code: this.room_code,
           role: this.role
         })

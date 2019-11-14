@@ -11,7 +11,8 @@ const state = () => ({
   },
   semester: null,
   year: null,
-  token: null
+  token: null,
+  pmFlag: null
 })
 
 export default {
