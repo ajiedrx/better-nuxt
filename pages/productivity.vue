@@ -17,6 +17,7 @@
 </template>
 <script>
 export default {
+  middleware: ['auth'],
   layout: 'main',
   data: () => ({
     headers: [

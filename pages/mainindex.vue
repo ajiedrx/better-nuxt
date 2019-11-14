@@ -150,6 +150,7 @@
 
 <script>
 export default {
+  middleware: ['auth'],
   layout: 'main',
   data: () => ({
     labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],

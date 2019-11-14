@@ -9,6 +9,7 @@
 </template>
 <script>
 export default {
+  middleware: ['auth'],
   layout: 'main',
   data: () => ({
     date: new Date().toISOString().substr(0, 10),

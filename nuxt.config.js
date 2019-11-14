@@ -64,8 +64,8 @@ export default {
   auth: {
     redirect: {
       login: '/login',
-      logout: '/login',
-      callback: '/register',
+      logout: '/',
+      callback: '/login',
       home: '/'
     },
     strategies: {
@@ -83,7 +83,7 @@ export default {
     }
   },
   router: {
-    middleware: ['auth']
+    // middleware: ['auth']
   },
   /*
    ** vuetify module configuration

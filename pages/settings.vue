@@ -165,6 +165,7 @@
 </template>
 <script>
 export default {
+  middleware: ['auth'],
   layout: 'mainPM',
   data() {
     return {

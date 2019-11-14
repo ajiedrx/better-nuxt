@@ -89,6 +89,7 @@
 
 <script>
 export default {
+  middleware: ['auth'],
   layout: 'default',
   team: false,
   data() {

@@ -3,6 +3,7 @@
 </template>
 <script>
 export default {
+  middleware: ['auth'],
   layout: 'main'
 }
 </script>
