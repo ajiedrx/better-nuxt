@@ -126,9 +126,9 @@
           <v-layout col justify-center>
             <v-flex pt-5 mt-5 md4>
               <v-text-field
+                v-model="room_code"
                 color="primary"
                 label="Code"
-                name="teamcode"
                 prepend-icon="mdi-dark mdi-key"
                 type="text"
                 autofocus
@@ -206,6 +206,7 @@ export default {
           console.log(this.room_code)
           console.log(this.room_name)
           console.log(response)
+          this.$router.push('/')
         })
         .catch(function(error) {
           console.log(error)
@@ -213,12 +214,14 @@ export default {
     },
     joinTeam() {
       this.$axios
-        .post('team', {
+        .post('team/join', {
           room_code: this.room_code,
           role: this.role
         })
         .then((response) => {
+          console.log(this.room_code)
           console.log(response)
+          this.$router.push('/')
         })
         .catch(function(error) {
           console.log(error)
