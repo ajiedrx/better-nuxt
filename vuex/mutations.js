@@ -20,5 +20,8 @@ export default {
   },
   [types.SET_USER_ROLE]: (state, payload) => {
     state.role = payload
+  },
+  [types.SET_ID_MANAGER]: (state, payload) => {
+    state.idManager = payload
   }
 }

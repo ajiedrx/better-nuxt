@@ -74,12 +74,12 @@ export default {
   mounted() {
     this.$axios
       .post('daily-scrum-report/list', {
-        id: this.$store.state.idTeam,
+        id: localStorage.getItem('team_id'),
         date: '2019-11-21'
       })
       .then((response) => {
         this.reports = response.data.data
-        console.log(response.data.data)
+        console.log(response.data)
       })
       .catch(function(error) {
         console.log(error)

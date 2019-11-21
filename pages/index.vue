@@ -141,7 +141,11 @@ export default {
       this.$store.commit('setTeamState', false)
     },
     enterTeam(id) {
+      localStorage.clear()
       this.$store.commit('SET_ID_TEAM', id)
+      if (process.browser) {
+        localStorage.setItem('team_id', id)
+      }
       if (this.$store.state.idManager !== this.$auth.user.id) {
         this.$router.push('/mainindex')
       } else {

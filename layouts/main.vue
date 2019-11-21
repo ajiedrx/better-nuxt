@@ -71,9 +71,9 @@
             <img src="/icon.png" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>Fulan</v-list-item-title>
+            <v-list-item-title>{{ manager.name }}</v-list-item-title>
             <v-list-item-subtitle>
-              fulan@beetter.com
+              {{ manager.email }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -82,10 +82,13 @@
       <v-divider></v-divider>
 
       <v-list dense>
-        <v-list-item v-for="member in members" :key="member.user.name">
+        <v-list-item
+          v-for="member in members.slice(1)"
+          :key="member.user[0].name"
+        >
           <v-list-item-content>
             <v-list-item-title class="ml-3">{{
-              member.user.name
+              member.user[0].name
             }}</v-list-item-title>
           </v-list-item-content>
           <!-- <div v-if="member.status" class="dotmember mr-5"></div>
@@ -132,6 +135,7 @@ export default {
       drawer: true,
       fixed: true,
       sheet: false,
+      manager: [],
       // currentUserProps: {
       //   name: 'Username',
       //   email: 'Email',
@@ -243,20 +247,21 @@ export default {
     }
   },
   mounted() {
-    // this.$axios
-    //   .post('team/member', {
-    //     id: this.$store.state.idTeam
-    //   })
-    //   .then((response) => {
-    //     // this.$store.commit('SET_USER_TOKEN', response.data.success.token)
-    //     console.log(response.data)
-    //     this.members = response.data
-    //     // console.log(response.data)
-    //     // this.usertoken = 'Bearer ' + this.$store.state.token
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error)
-    //   })
+    this.$axios
+      .post('team/member', {
+        id: localStorage.getItem('team_id')
+      })
+      .then((response) => {
+        // this.$store.commit('SET_USER_TOKEN', response.data.success.token)
+        console.log(response.data)
+        this.members = response.data.data
+        this.manager = this.members[0].user[0]
+        // console.log(response.data)
+        // this.usertoken = 'Bearer ' + this.$store.state.token
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
   }
 }
 </script>

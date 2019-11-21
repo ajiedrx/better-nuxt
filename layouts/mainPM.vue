@@ -71,10 +71,10 @@
             <img src="/icon.png" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>{{ currentUserProps.name }}</v-list-item-title>
-            <v-list-item-subtitle>{{
-              currentUserProps.email
-            }}</v-list-item-subtitle>
+            <v-list-item-title>{{ manager.name }}</v-list-item-title>
+            <v-list-item-subtitle>
+              {{ manager.email }}
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -82,14 +82,17 @@
       <v-divider></v-divider>
 
       <v-list dense>
-        <v-list-item v-for="online in onlines" :key="online.name">
+        <v-list-item
+          v-for="member in members.slice(1)"
+          :key="member.user[0].name"
+        >
           <v-list-item-content>
             <v-list-item-title class="ml-3">{{
-              online.name
+              member.user[0].name
             }}</v-list-item-title>
           </v-list-item-content>
-          <div v-if="online.status" class="dotonline mr-5"></div>
-          <div v-if="!online.status" class="dotoffline mr-5"></div>
+          <!-- <div v-if="member.status" class="dotmember mr-5"></div>
+          <div v-if="!member.status" class="dotoffline mr-5"></div> -->
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -132,47 +135,43 @@ export default {
       drawer: true,
       fixed: true,
       sheet: false,
-      currentUserProps: {
-        name: 'Username',
-        email: 'Email',
-        avatar: ''
-      },
-      onlines: [
-        {
-          name: 'Daegal P',
-          to: '/profileMain',
-          status: true
-        },
-        {
-          name: 'Ajie DR',
-          to: '/',
-          status: true
-        },
-        {
-          name: 'Aldi Izzaldi',
-          to: '/',
-          status: true
-        },
-        {
-          name: 'Sherly Maya',
-          to: '/',
-          status: false
-        },
-        {
-          name: 'Astin IC',
-          to: '/',
-          status: true
-        },
-        {
-          name: 'M Aliffiansyah',
-          to: '/',
-          status: false
-        },
-        {
-          name: 'Wifda Muna',
-          to: '/',
-          status: true
-        }
+      manager: [],
+      members: [
+        // {
+        //   name: 'Daegal P',
+        //   to: '/profileMain',
+        //   status: true
+        // },
+        // {
+        //   name: 'Ajie DR',
+        //   to: '/',
+        //   status: true
+        // },
+        // {
+        //   name: 'Aldi Izzaldi',
+        //   to: '/',
+        //   status: true
+        // },
+        // {
+        //   name: 'Sherly Maya',
+        //   to: '/',
+        //   status: false
+        // },
+        // {
+        //   name: 'Astin IC',
+        //   to: '/',
+        //   status: true
+        // },
+        // {
+        //   name: 'M Aliffiansyah',
+        //   to: '/',
+        //   status: false
+        // },
+        // {
+        //   name: 'Wifda Muna',
+        //   to: '/',
+        //   status: true
+        // }
       ],
       items: [
         {
@@ -241,6 +240,23 @@ export default {
       rightDrawer: true,
       userName: 'Username'
     }
+  },
+  mounted() {
+    this.$axios
+      .post('team/member', {
+        id: localStorage.getItem('team_id')
+      })
+      .then((response) => {
+        // this.$store.commit('SET_USER_TOKEN', response.data.success.token)
+        console.log(response.data)
+        this.members = response.data.data
+        this.manager = this.members[0].user[0]
+        // console.log(response.data)
+        // this.usertoken = 'Bearer ' + this.$store.state.token
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
   }
 }
 </script>

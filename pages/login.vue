@@ -22,10 +22,13 @@
 
                   <v-text-field
                     v-model="password"
+                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                     label="Password"
+                    :type="show ? 'text' : 'password'"
                     name="password"
+                    hint="At least 8 characters"
                     prepend-icon="mdi-dark mdi-lock"
-                    type="password"
+                    @click:append="show = !show"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
@@ -53,7 +56,14 @@ export default {
   data() {
     return {
       usertoken: '',
-      drawer: null
+      drawer: null,
+      value: true,
+      // rules: {
+      //   required: (value) =>
+      //     value === !value || 'Email or Password did not match.',
+      //   min: (v) => v.length >= 8 || 'Min 8 characters'
+      // },
+      show: false
     }
   },
   // computed: {
@@ -84,6 +94,8 @@ export default {
         .then((response) => {
           if (this.$auth.loggedIn) {
             this.$router.push('/')
+          } else {
+            this.rules.emailPasswordMatch(false)
           }
         })
       // e.preventDefault()

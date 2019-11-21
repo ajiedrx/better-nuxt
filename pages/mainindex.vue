@@ -171,7 +171,8 @@ export default {
   mounted() {
     this.$axios
       .post('daily-scrum-report/check', {
-        id_team: this.$store.state.idTeam
+        // id_team: this.$store.state.idTeam
+        id_team: localStorage.getItem('team_id')
       })
       .then((response) => {
         console.log(response.data)
