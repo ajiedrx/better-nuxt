@@ -82,14 +82,14 @@
       <v-divider></v-divider>
 
       <v-list dense>
-        <v-list-item v-for="online in onlines" :key="online.name">
+        <v-list-item v-for="member in members" :key="member.user.name">
           <v-list-item-content>
             <v-list-item-title class="ml-3">{{
-              online.name
+              member.user.name
             }}</v-list-item-title>
           </v-list-item-content>
-          <div v-if="online.status" class="dotonline mr-5"></div>
-          <div v-if="!online.status" class="dotoffline mr-5"></div>
+          <!-- <div v-if="member.status" class="dotmember mr-5"></div>
+          <div v-if="!member.status" class="dotoffline mr-5"></div> -->
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -132,47 +132,47 @@ export default {
       drawer: true,
       fixed: true,
       sheet: false,
-      currentUserProps: {
-        name: 'Username',
-        email: 'Email',
-        avatar: ''
-      },
-      onlines: [
-        {
-          name: 'Daegal P',
-          to: '/profileMain',
-          status: true
-        },
-        {
-          name: 'Ajie DR',
-          to: '/',
-          status: true
-        },
-        {
-          name: 'Aldi Izzaldi',
-          to: '/',
-          status: true
-        },
-        {
-          name: 'Sherly Maya',
-          to: '/',
-          status: false
-        },
-        {
-          name: 'Astin IC',
-          to: '/',
-          status: true
-        },
-        {
-          name: 'M Aliffiansyah',
-          to: '/',
-          status: false
-        },
-        {
-          name: 'Wifda Muna',
-          to: '/',
-          status: true
-        }
+      // currentUserProps: {
+      //   name: 'Username',
+      //   email: 'Email',
+      //   avatar: ''
+      // },
+      members: [
+        // {
+        //   name: 'Daegal P',
+        //   to: '/profileMain',
+        //   status: true
+        // },
+        // {
+        //   name: 'Ajie DR',
+        //   to: '/',
+        //   status: true
+        // },
+        // {
+        //   name: 'Aldi Izzaldi',
+        //   to: '/',
+        //   status: true
+        // },
+        // {
+        //   name: 'Sherly Maya',
+        //   to: '/',
+        //   status: false
+        // },
+        // {
+        //   name: 'Astin IC',
+        //   to: '/',
+        //   status: true
+        // },
+        // {
+        //   name: 'M Aliffiansyah',
+        //   to: '/',
+        //   status: false
+        // },
+        // {
+        //   name: 'Wifda Muna',
+        //   to: '/',
+        //   status: true
+        // }
       ],
       items: [
         {
@@ -241,6 +241,22 @@ export default {
       rightDrawer: true,
       userName: 'Username'
     }
+  },
+  mounted() {
+    // this.$axios
+    //   .post('team/member', {
+    //     id: this.$store.state.idTeam
+    //   })
+    //   .then((response) => {
+    //     // this.$store.commit('SET_USER_TOKEN', response.data.success.token)
+    //     console.log(response.data)
+    //     this.members = response.data
+    //     // console.log(response.data)
+    //     // this.usertoken = 'Bearer ' + this.$store.state.token
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error)
+    //   })
   }
 }
 </script>

@@ -8,7 +8,16 @@
       <v-row>
         <v-col v-for="card in cards" :key="card.name" cols="12" md="4">
           <v-item>
-            <v-card height="200px" min-width="250px" hover light :to="card.to">
+            <v-card
+              height="200px"
+              min-width="250px"
+              hover
+              light
+              @click="
+                setIdManager(card.manager[0].id)
+                enterTeam(card.details[0].id)
+              "
+            >
               <v-card-title class="justify-center">{{
                 card.details[0].room_name
               }}</v-card-title>
@@ -130,6 +139,17 @@ export default {
     },
     isPm() {
       this.$store.commit('setTeamState', false)
+    },
+    enterTeam(id) {
+      this.$store.commit('SET_ID_TEAM', id)
+      if (this.$store.state.idManager !== this.$auth.user.id) {
+        this.$router.push('/mainindex')
+      } else {
+        this.$router.push('/mainindexPM')
+      }
+    },
+    setIdManager(id) {
+      this.$store.commit('SET_ID_MANAGER', id)
     }
   }
 }

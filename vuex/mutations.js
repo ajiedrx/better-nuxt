@@ -14,5 +14,11 @@ export default {
   },
   [types.SET_PM_FLAG]: (state, payload) => {
     state.pmFlag = payload
+  },
+  [types.SET_ID_TEAM]: (state, payload) => {
+    state.idTeam = payload
+  },
+  [types.SET_USER_ROLE]: (state, payload) => {
+    state.role = payload
   }
 }

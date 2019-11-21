@@ -109,7 +109,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <a color="primary"> Fulan </a>
+      <a color="primary"> {{ this.$auth.user.username }} </a>
       <v-btn icon to="/profile">
         <v-icon>mdi-dark mdi-account-circle</v-icon>
       </v-btn>
@@ -206,7 +206,7 @@ export default {
           console.log(this.room_code)
           console.log(this.room_name)
           console.log(response)
-          this.$router.push('/')
+          this.dialog = false
         })
         .catch(function(error) {
           console.log(error)

@@ -17,9 +17,11 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "chart.js": "^2.9.1",
     "hchs-vue-charts": "^1.2.8",
+    "js-cookie": "^2.2.1",
     "nuxt": "^2.0.0",
     "vue": "latest",
-    "vuetify": "latest"
+    "vuetify": "latest",
+    "vuex-persistedstate": "^2.7.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

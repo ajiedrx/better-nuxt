@@ -10,15 +10,10 @@
             <v-container>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field
-                    v-model="last_24_hour_activities"
-                    label="Done"
-                    required
-                  ></v-text-field>
+                  <v-text-field label="Done" required></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                    v-model="next_24_hour_activities"
                     label="Plan"
                     type="text"
                     required
@@ -26,7 +21,6 @@
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                    v-model="obstacles"
                     label="Obstacle"
                     type="text"
                     required
@@ -41,10 +35,7 @@
               class="text-center"
               color="blue darken-1"
               text
-              @click="
-                dialog = false
-                submitDailyReport()
-              "
+              @click="dialog = false"
               >SUBMIT</v-btn
             >
           </v-card-actions>
@@ -165,41 +156,7 @@ export default {
     return {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       value: [200, 675, 410, 390, 310],
-      dialog: false
-    }
-  },
-  mounted() {
-    this.$axios
-      .post('daily-scrum-report/check', {
-        id_team: this.$store.state.idTeam
-      })
-      .then((response) => {
-        console.log(response.data)
-        if (response.data.message === 'sudah mengisi data hari ini') {
-          this.dialog = false
-        } else this.dialog = true
-      })
-      .catch(function(error) {
-        console.log(error)
-      })
-  },
-  methods: {
-    submitDailyReport() {
-      this.$axios
-        .post('daily-scrum-report', {
-          id_team: this.$store.state.idTeam,
-          next_24_hour_activities: this.next_24_hour_activities,
-          last_24_hour_activities: this.last_24_hour_activities,
-          obstacle: this.obstacles
-        })
-        .then((response) => {
-          // this.$store.commit('SET_USER_TOKEN', response.data.success.token)
-          console.log(response.data)
-          // this.usertoken = 'Bearer ' + this.$store.state.token
-        })
-        .catch(function(error) {
-          console.log(error)
-        })
+      dialog: true
     }
   }
 }
