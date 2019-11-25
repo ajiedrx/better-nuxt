@@ -13,25 +13,46 @@
             <v-col align="center" justify="center">
               Productive Apps
               <v-card class="ma-5" color="#cbcbcb" flat>
-                <v-card-text v-for="pro in pros" :key="pro.name">{{
-                  pro.name
-                }}</v-card-text>
+                <v-row>
+                  <v-col>
+                    <v-card-text v-for="pro in pros" :key="pro.name">{{
+                      pro.name
+                    }}</v-card-text>
+                  </v-col>
+                  <v-col>
+                    <v-card-text>42m</v-card-text>
+                  </v-col>
+                </v-row>
               </v-card>
             </v-col>
             <v-col align="center" justify="center">
               Non-Productive Apps
               <v-card class="ma-5" color="#cbcbcb" flat>
-                <v-card-text v-for="nonpro in nonpros" :key="nonpro.name">{{
-                  nonpro.name
-                }}</v-card-text>
+                <v-row>
+                  <v-col>
+                    <v-card-text v-for="pro in pros" :key="pro.name">{{
+                      pro.name
+                    }}</v-card-text>
+                  </v-col>
+                  <v-col>
+                    <v-card-text>42m</v-card-text>
+                  </v-col>
+                </v-row>
               </v-card>
             </v-col>
             <v-col align="center" justify="center">
               Neutral Apps
               <v-card class="ma-5" color="#cbcbcb" flat>
-                <v-card-text v-for="neutral in neutrals" :key="neutral.name">{{
-                  neutral.name
-                }}</v-card-text>
+                <v-row>
+                  <v-col>
+                    <v-card-text v-for="pro in pros" :key="pro.name">{{
+                      pro.name
+                    }}</v-card-text>
+                  </v-col>
+                  <v-col>
+                    <v-card-text>42m</v-card-text>
+                  </v-col>
+                </v-row>
               </v-card>
             </v-col>
           </v-row>
