@@ -1,16 +1,14 @@
 <template>
-  <v-container>
-    <div class="card">
-      <div class="card-img-bottom">
-        <chartjs-doughnut
-          :bind="true"
-          :datasets="datasets"
-          :labels="labels"
-          :option="option"
-        />
-      </div>
-    </div>
-  </v-container>
+  <v-row align="center" justify="center">
+    <chartjs-doughnut
+      class="mb-0"
+      :bind="true"
+      :datasets="datasets"
+      :labels="labels"
+      :option="option"
+      style="width: 800px; height: 400px"
+    />
+  </v-row>
 </template>
 <script>
 export default {
@@ -24,7 +22,7 @@ export default {
         }
       ],
       labels: ['Productive', 'Unproductive', 'Neutral'],
-      option: {}
+      option: { responsive: true }
     }
   }
 }

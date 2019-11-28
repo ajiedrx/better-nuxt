@@ -71,9 +71,9 @@
             <img src="/icon.png" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>{{ manager.name }}</v-list-item-title>
+            <v-list-item-title>{{ currentTeam.room_name }}</v-list-item-title>
             <v-list-item-subtitle>
-              {{ manager.email }}
+              {{ countMembers }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -82,18 +82,56 @@
       <v-divider></v-divider>
 
       <v-list dense>
-        <v-list-item
-          v-for="member in members.slice(1)"
-          :key="member.user[0].name"
-        >
+        <v-list-item-title class="ml-3">MANAGER</v-list-item-title>
+        <v-divider class="mx-5"></v-divider>
+        <v-list-item>
           <v-list-item-content>
             <v-list-item-title class="ml-3">{{
-              member.user[0].name
+              manager.name
             }}</v-list-item-title>
           </v-list-item-content>
           <!-- <div v-if="member.status" class="dotmember mr-5"></div>
           <div v-if="!member.status" class="dotoffline mr-5"></div> -->
         </v-list-item>
+        <div v-if="counts.uiux != 0">
+          <v-list-item-title class="ml-3">UI/UX</v-list-item-title>
+          <v-divider class="mx-5"></v-divider>
+          <v-list-item v-for="uiuxs in uiux" :key="uiuxs.name">
+            <v-list-item-content>
+              <v-list-item-title class="ml-3">{{
+                uiuxs.name
+              }}</v-list-item-title>
+            </v-list-item-content>
+            <!-- <div v-if="member.status" class="dotmember mr-5"></div>
+          <div v-if="!member.status" class="dotoffline mr-5"></div> -->
+          </v-list-item>
+        </div>
+        <div v-if="counts.backend != 0">
+          <v-list-item-title class="ml-3">BACKEND</v-list-item-title>
+          <v-divider class="mx-5"></v-divider>
+          <v-list-item v-for="backends in backend" :key="backends.name">
+            <v-list-item-content>
+              <v-list-item-title class="ml-3">{{
+                backends.name
+              }}</v-list-item-title>
+            </v-list-item-content>
+            <!-- <div v-if="member.status" class="dotmember mr-5"></div>
+          <div v-if="!member.status" class="dotoffline mr-5"></div> -->
+          </v-list-item>
+        </div>
+        <div v-if="counts.frontend != 0">
+          <v-list-item-title class="ml-3">FRONTEND</v-list-item-title>
+          <v-divider class="mx-5"></v-divider>
+          <v-list-item v-for="frontends in frontend" :key="frontends.name">
+            <v-list-item-content>
+              <v-list-item-title class="ml-3">{{
+                frontends.name
+              }}</v-list-item-title>
+            </v-list-item-content>
+            <!-- <div v-if="member.status" class="dotmember mr-5"></div>
+          <div v-if="!member.status" class="dotoffline mr-5"></div> -->
+          </v-list-item>
+        </div>
       </v-list>
     </v-navigation-drawer>
 
@@ -129,6 +167,7 @@
 
 <script>
 export default {
+  /* eslint-disable */
   data() {
     return {
       clipped: true,
@@ -136,11 +175,16 @@ export default {
       fixed: true,
       sheet: false,
       manager: [],
+      currentTeam: [],
       // currentUserProps: {
       //   name: 'Username',
       //   email: 'Email',
       //   avatar: ''
       // },
+      uiux: [],
+      frontend: [],
+      backend: [],
+      counts: [],
       members: [
         // {
         //   name: 'Daegal P',
@@ -247,21 +291,44 @@ export default {
     }
   },
   mounted() {
-    this.$axios
-      .post('team/member', {
-        id: localStorage.getItem('team_id')
-      })
-      .then((response) => {
-        // this.$store.commit('SET_USER_TOKEN', response.data.success.token)
-        console.log(response.data)
-        this.members = response.data.data
-        this.manager = this.members[0].user[0]
-        // console.log(response.data)
-        // this.usertoken = 'Bearer ' + this.$store.state.token
-      })
-      .catch(function(error) {
-        console.log(error)
-      })
+    this.listMembers()
+    this.getTeamInfo()
+  },
+  methods: {
+    listMembers() {
+      this.$axios
+        .post('team/member', {
+          id: localStorage.getItem('team_id')
+        })
+        .then((response) => {
+          // this.$store.commit('SET_USER_TOKEN', response.data.success.token)
+          this.manager = response.data.data.manager
+          this.uiux = response.data.data.uiux
+          this.backend = response.data.data.backend
+          this.frontend = response.data.data.frontend
+          this.counts = response.data.data.count
+          console.log(response.data.data)
+          // this.members = response.data.data
+          // this.manager = this.members[0].user[0]
+          // console.log(response.data)
+          // this.usertoken = 'Bearer ' + this.$store.state.token
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    },
+    getTeamInfo() {
+      this.$axios
+        .get('team' + '/' + localStorage.getItem('team_id'))
+        .then((response) => {
+          console.log(response.data.data)
+          this.currentTeam = response.data.data
+          // this.currentTeam = response.data.data
+        })
+    },
+    countMembers(){
+      return parseInt(this.counts.uiux+this.counts.frontend+this.counts.backend+1)
+    }
   }
 }
 </script>

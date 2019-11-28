@@ -188,7 +188,7 @@ export default {
     submitDailyReport() {
       this.$axios
         .post('daily-scrum-report', {
-          id_team: this.$store.state.idTeam,
+          id_team: localStorage.getItem('team_id'),
           next_24_hour_activities: this.next_24_hour_activities,
           last_24_hour_activities: this.last_24_hour_activities,
           obstacle: this.obstacles
