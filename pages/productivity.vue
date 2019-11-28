@@ -252,16 +252,18 @@ export default {
   },
   mounted() {
     this.$axios
-      .post('daily-tracking-report/overal-per-team', {
-        id_team: localStorage.getItem('team_id')
+      .post('daily-tracking-report/overal-per-user', {
+        date: '2019-11-27'
       })
       .then((response) => {
-        console.log(response.data.data.value)
+        // console.log(response.data.data.value)
+        this.datasets.data = response.data.data.value
+        console.log(this.datasets.data)
         // this.datasets.data[0] = response.data.data.value.productive_value
         // this.datasets.data[1] = response.data.data.value.netral_value
         // this.datasets.data[2] = response.data.data.value.not_productive_value
-        this.datasets.data = response.data.data.value
-        console.log(this.datasets.data)
+        // this.datasets.data = response.data.data.value
+        // console.log(this.datasets.data)
         // this.datasets.data = response.data.value
       })
       .catch((error) => {
