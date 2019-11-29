@@ -327,7 +327,7 @@ export default {
         })
     },
     countMembers(){
-      return parseInt(this.counts.uiux+this.counts.frontend+this.counts.backend+1)
+      return this.counts.uiux+this.counts.frontend+this.counts.backend+1
     }
   }
 }
