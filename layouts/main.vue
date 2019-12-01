@@ -290,7 +290,7 @@ export default {
       userName: 'Username'
     }
   },
-  mounted() {
+  beforeMount() {
     this.listMembers()
     this.getTeamInfo()
   },

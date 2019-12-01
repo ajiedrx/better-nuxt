@@ -15,11 +15,12 @@
     "@nuxtjs/auth": "^4.8.4",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-0",
-    "chart.js": "^2.9.1",
+    "chart.js": "^2.9.3",
     "hchs-vue-charts": "^1.2.8",
     "js-cookie": "^2.2.1",
     "nuxt": "^2.0.0",
     "vue": "latest",
+    "vue-chartjs": "^3.5.0",
     "vuetify": "latest",
     "vuex-persistedstate": "^2.7.0"
   },

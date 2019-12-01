@@ -38,19 +38,10 @@
         </v-dialog>
       </v-col>
     </v-row>
-    <client-only>
-      <v-row align="center" justify="center">
-        <chartjs-doughnut
-          v-if="loaded"
-          class="mb-0"
-          :bind="true"
-          :datasets="datasets"
-          :labels="labels"
-          :option="option"
-          style="width: 800px; height: 400px"
-        />
-      </v-row>
-    </client-only>
+
+    <v-row align="center" justify="center">
+      <ChartDoughnut />
+    </v-row>
     <v-row class="mt-5">
       <!-- <a @click="pm = true">BACK</a> -->
       <v-col cols="12">
@@ -114,15 +105,17 @@ export default {
   data() {
     return {
       loaded: false,
-      datasets: [
-        {
-          data: [],
-          backgroundColor: ['#f36e60', '#ffdb3b', '#185190'],
-          hoverBackgroundColor: ['#fbd2cd', '#fef5c9', '#d1e3f7']
-        }
-      ],
-      labels: ['Productive', 'Unproductive', 'Neutral'],
-      option: { responsive: true },
+      dataCollection: [],
+      // datasets: [
+      //   {
+      //     data: [],
+      //     backgroundColor: ['#f36e60', '#ffdb3b', '#185190'],
+      //     hoverBackgroundColor: ['#fbd2cd', '#fef5c9', '#d1e3f7']
+      //   }
+      // ],
+      // labels: ['Productive', 'Unproductive', 'Neutral'],
+      // option: { responsive: true },
+      datachart: [],
       pros: [
         {
           name: 'Netbeans IDE'
@@ -254,11 +247,11 @@ export default {
       ]
     }
   },
-  watch: {
-    datasets() {
-      this.$data._chart.update()
-    }
-  },
+  // watch: {
+  //   chartData() {
+  //     this.$data._chart.update()
+  //   }
+  // },
   // async asyncData({ env }) {
   //   const res = await axios.post('daily-tracking-report/overal-per-user', {
   //     date: '2019-11-27'
@@ -292,25 +285,7 @@ export default {
   //   }
   // },
   mounted() {
-    this.$axios
-      .post('daily-tracking-report/overal-per-user', {
-        date: '2019-11-27'
-      })
-      .then((response) => {
-        // console.log(response.data.data.value)
-        this.datasets.data = response.data.data.value
-        console.log(this.datasets.data)
-        this.loaded = true
-        // this.datasets.data[0] = response.data.data.value.productive_value
-        // this.datasets.data[1] = response.data.data.value.netral_value
-        // this.datasets.data[2] = response.data.data.value.not_productive_value
-        // this.datasets.data = response.data.data.value
-        // console.log(this.datasets.data)
-        // this.datasets.data = response.data.value
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // this.loadChartData()
   },
   methods: {
     chooseDate() {
@@ -324,6 +299,38 @@ export default {
           console.log(response.data)
         })
         .catch(function(error) {
+          console.log(error)
+        })
+    },
+    loadChartData() {
+      this.$axios
+        .post('daily-tracking-report/overal-per-user', {
+          date: '2019-11-27'
+        })
+        .then((response) => {
+          // console.log(response.data.data.value)
+          this.datachart = response.data.data.value
+          // console.log(this.datasets.data)
+          this.dataCollection = {
+            labels: ['Productive', 'Neutral', 'Unproductive'],
+            datasets: [
+              {
+                label: ['Productivity Chart'],
+                backgroundColor: ['#f36e60', '#ffdb3b', '#185190'],
+                data: [this.datachart]
+              }
+            ]
+          }
+          console.log(response)
+          this.loaded = true
+          // this.datasets.data[0] = response.data.data.value.productive_value
+          // this.datasets.data[1] = response.data.data.value.netral_value
+          // this.datasets.data[2] = response.data.data.value.not_productive_value
+          // this.datasets.data = response.data.data.value
+          // console.log(this.datasets.data)
+          // this.datasets.data = response.data.value
+        })
+        .catch((error) => {
           console.log(error)
         })
     }
