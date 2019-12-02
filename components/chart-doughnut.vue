@@ -84,7 +84,7 @@ export default {
     loadChartData() {
       this.$axios
         .post('daily-tracking-report/overal-per-user', {
-          date: '2019-11-27'
+          date: '2019-12-02'
         })
         .then((response) => {
           // console.log(response.data.data.value)
@@ -94,7 +94,7 @@ export default {
           // }
           // console.log(this.datasets.data)
           this.datasets.data = this.array
-          console.log(this.array)
+          console.log(response)
           this.loaded = true
         })
         .catch((error) => {

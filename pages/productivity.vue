@@ -50,14 +50,15 @@
             <v-col align="center" justify="center">
               Productive Apps
               <v-card class="ma-5" color="#cbcbcb" flat>
-                <v-row>
+                <v-row
+                  v-for="appdatas in appdata.productive"
+                  :key="appdatas.name"
+                >
                   <v-col>
-                    <v-card-text v-for="pro in pros" :key="pro.name">{{
-                      pro.name
-                    }}</v-card-text>
+                    <v-card-text>{{ appdatas.name }}</v-card-text>
                   </v-col>
                   <v-col>
-                    <v-card-text>42m</v-card-text>
+                    <v-card-text>{{ appdatas.duration }}</v-card-text>
                   </v-col>
                 </v-row>
               </v-card>
@@ -65,14 +66,15 @@
             <v-col align="center" justify="center">
               Non-Productive Apps
               <v-card class="ma-5" color="#cbcbcb" flat>
-                <v-row>
+                <v-row
+                  v-for="appdatas in appdata.not_productive"
+                  :key="appdatas.name"
+                >
                   <v-col>
-                    <v-card-text v-for="pro in pros" :key="pro.name">{{
-                      pro.name
-                    }}</v-card-text>
+                    <v-card-text>{{ appdatas.name }}</v-card-text>
                   </v-col>
                   <v-col>
-                    <v-card-text>42m</v-card-text>
+                    <v-card-text>{{ appdatas.duration }}</v-card-text>
                   </v-col>
                 </v-row>
               </v-card>
@@ -80,14 +82,12 @@
             <v-col align="center" justify="center">
               Neutral Apps
               <v-card class="ma-5" color="#cbcbcb" flat>
-                <v-row>
+                <v-row v-for="appdatas in appdata.netral" :key="appdatas.name">
                   <v-col>
-                    <v-card-text v-for="pro in pros" :key="pro.name">{{
-                      pro.name
-                    }}</v-card-text>
+                    <v-card-text>{{ appdatas.name }}</v-card-text>
                   </v-col>
                   <v-col>
-                    <v-card-text>42m</v-card-text>
+                    <v-card-text>{{ appdatas.duration }}</v-card-text>
                   </v-col>
                 </v-row>
               </v-card>
@@ -116,135 +116,8 @@ export default {
       // labels: ['Productive', 'Unproductive', 'Neutral'],
       // option: { responsive: true },
       datachart: [],
-      pros: [
-        {
-          name: 'Netbeans IDE'
-        },
-        {
-          name: 'xampp'
-        },
-        {
-          name: 'Visual Studio Code'
-        },
-        {
-          name: 'Microsoft Excel'
-        }
-      ],
-      nonpros: [
-        {
-          name: 'youtube.com'
-        },
-        {
-          name: 'Steam'
-        },
-        {
-          name: 'Origin'
-        }
-      ],
-      neutrals: [
-        {
-          name: 'Spotify'
-        },
-        {
-          name: 'Calculator'
-        }
-      ],
-      date: new Date().toISOString().substr(0, 10),
-      headers: [
-        {
-          text: 'Dessert (100g serving)',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Iron (%)', value: 'iron' }
-      ],
-      desserts: [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: '1%'
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: '1%'
-        },
-        {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: '7%'
-        },
-        {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: '8%'
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: '16%'
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: '0%'
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: '2%'
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: '45%'
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: '22%'
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: '6%'
-        }
-      ]
+      appdata: [],
+      date: new Date().toISOString().substr(0, 10)
     }
   },
   // watch: {
@@ -286,6 +159,7 @@ export default {
   // },
   mounted() {
     // this.loadChartData()
+    this.getAppData()
   },
   methods: {
     chooseDate() {
@@ -302,38 +176,52 @@ export default {
           console.log(error)
         })
     },
-    loadChartData() {
+    getAppData() {
       this.$axios
         .post('daily-tracking-report/overal-per-user', {
-          date: '2019-11-27'
+          date: '2019-12-02'
         })
         .then((response) => {
-          // console.log(response.data.data.value)
-          this.datachart = response.data.data.value
-          // console.log(this.datasets.data)
-          this.dataCollection = {
-            labels: ['Productive', 'Neutral', 'Unproductive'],
-            datasets: [
-              {
-                label: ['Productivity Chart'],
-                backgroundColor: ['#f36e60', '#ffdb3b', '#185190'],
-                data: [this.datachart]
-              }
-            ]
-          }
+          this.appdata = response.data.data.app
           console.log(response)
-          this.loaded = true
-          // this.datasets.data[0] = response.data.data.value.productive_value
-          // this.datasets.data[1] = response.data.data.value.netral_value
-          // this.datasets.data[2] = response.data.data.value.not_productive_value
-          // this.datasets.data = response.data.data.value
-          // console.log(this.datasets.data)
-          // this.datasets.data = response.data.value
+          console.log(this.appdata)
         })
         .catch((error) => {
           console.log(error)
         })
     }
+    // loadChartData() {
+    //   this.$axios
+    //     .post('daily-tracking-report/overal-per-user', {
+    //       date: '2019-11-27'
+    //     })
+    //     .then((response) => {
+    //       // console.log(response.data.data.value)
+    //       this.datachart = response.data.data.value
+    //       // console.log(this.datasets.data)
+    //       this.dataCollection = {
+    //         labels: ['Productive', 'Neutral', 'Unproductive'],
+    //         datasets: [
+    //           {
+    //             label: ['Productivity Chart'],
+    //             backgroundColor: ['#f36e60', '#ffdb3b', '#185190'],
+    //             data: [this.datachart]
+    //           }
+    //         ]
+    //       }
+    //       console.log(response)
+    //       this.loaded = true
+    //       // this.datasets.data[0] = response.data.data.value.productive_value
+    //       // this.datasets.data[1] = response.data.data.value.netral_value
+    //       // this.datasets.data[2] = response.data.data.value.not_productive_value
+    //       // this.datasets.data = response.data.data.value
+    //       // console.log(this.datasets.data)
+    //       // this.datasets.data = response.data.value
+    //     })
+    //     .catch((error) => {
+    //       console.log(error)
+    //     })
+    // }
   }
 }
 </script>
