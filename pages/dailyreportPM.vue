@@ -55,7 +55,7 @@
         <v-tab-item :value="'tab-' + 1">
           <v-card light flat tile>
             <v-row dense>
-              <v-col v-for="report in reports" :key="report.name" cols="12">
+              <v-col v-for="report in reports" :key="report.daily.id" cols="12">
                 <v-card class="pb-3 pl-2 mx-5" min-height="150" light>
                   <v-row class="ml-2" align="center" dense no-gutters>
                     <v-col>
@@ -65,22 +65,30 @@
                             <v-avatar color="primary"> </v-avatar>
                           </v-list-item-avatar>
                           <v-list-item-content>
-                            <v-card-text>{{ report.name }}</v-card-text>
+                            <v-card-text>{{ report.user.name }}</v-card-text>
                           </v-list-item-content>
                         </v-list-item>
                       </v-list>
                     </v-col>
                     <v-col class="pt-0 mr-3" align="end">
-                      <v-card-text class="pt-0">{{ report.time }}</v-card-text>
+                      <v-card-text class="pt-0">{{
+                        report.daily.created_at
+                      }}</v-card-text>
                     </v-col>
                   </v-row>
                   <v-container class="pt-0" dense>
                     <v-subheader light>Done :</v-subheader>
-                    <div class="ml-5 pl-5">{{ report.done }}</div>
+                    <div class="ml-5 pl-5">
+                      {{ report.daily.last_24_hour_activities }}
+                    </div>
                     <v-subheader light>Plan :</v-subheader>
-                    <div class="ml-5 pl-5">{{ report.plan }}</div>
+                    <div class="ml-5 pl-5">
+                      {{ report.daily.next_24_hour_activities }}
+                    </div>
                     <v-subheader light>Obstacle :</v-subheader>
-                    <div class="ml-5 pl-5">{{ report.obstacle }}</div>
+                    <div class="ml-5 pl-5">
+                      {{ report.obstacle[0].content }}
+                    </div>
                   </v-container>
                 </v-card>
               </v-col>
@@ -115,24 +123,7 @@ export default {
     modal: false,
     tab: null,
     detail: true,
-    reports: [
-      {
-        avatar: '',
-        name: 'Ajie DR',
-        time: '23.09',
-        done: 'Im done with you',
-        plan: 'Looking for the other',
-        obstacle: 'Umm'
-      },
-      {
-        avatar: '',
-        name: 'Daegal P',
-        time: '21.45',
-        done: 'Hiyahiyahiyaa',
-        plan: 'Wikwikwik',
-        obstacle: 'Nganu'
-      }
-    ],
+    reports: [],
     headers: [
       {
         text: 'Name',
