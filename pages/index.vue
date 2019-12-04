@@ -85,6 +85,7 @@
     </v-container>
   </v-app>
   <v-layout v-else column justify-center align-center>
+    <v-progress-linear v-if="!loaded" indeterminate></v-progress-linear>
     <v-container class="pa-0">
       <v-row>
         <v-col v-for="card in cards" :key="card.name" cols="12" md="4">
@@ -164,6 +165,7 @@ export default {
   data() {
     return {
       team: true,
+      loaded: false,
       cards: [
         // {
         //   title: 'Cendol Dawet',
@@ -215,6 +217,7 @@ export default {
           // this.$store.commit('SET_USER_TOKEN', response.data.success.token)
           this.cards = response.data.dataTeam
           console.log(response.data)
+          this.loaded = true
           // this.team = !this.team
           // this.usertoken = 'Bearer ' + this.$store.state.token
         })

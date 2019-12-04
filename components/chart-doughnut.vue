@@ -72,11 +72,11 @@ export default {
       datasets: [
         {
           data: [],
-          backgroundColor: ['#0db6ff', '#cf3530', '#969696'],
+          backgroundColor: ['#cf3530', '#969696', '#c0db6ff'],
           hoverBackgroundColor: ['#0db6ff', '#cf3530', '#969696']
         }
       ],
-      labels: ['Productive', 'Unproductive', 'Neutral'],
+      labels: ['Unproductive', 'Neutral', 'Productive'],
       option: {}
     }
   },
@@ -94,7 +94,7 @@ export default {
           // }
           // console.log(this.datasets.data)
           this.datasets.data = this.array
-          console.log(response)
+          console.log(this.array)
           this.loaded = true
         })
         .catch((error) => {

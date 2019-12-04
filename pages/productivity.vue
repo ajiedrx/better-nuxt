@@ -1,101 +1,107 @@
 <template>
   <v-container>
-    <v-row>
-      <h3 style="color: #1592E6">PRODUCTIVITY</h3>
-    </v-row>
-    <v-row align="center" justify="center">
-      <v-col cols="12" md="4">
-        <v-dialog
-          ref="dialog"
-          v-model="modal"
-          :return-value.sync="date"
-          persistent
-          width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="date"
-              label="Pick date"
-              prepend-icon="mdi-calendar"
-              readonly
-              light
-              v-on="on"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="date" scrollable light>
-            <v-spacer></v-spacer>
-            <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
-            <v-btn
-              text
-              color="primary"
-              @click="
-                $refs.dialog.save(date)
-                chooseDate()
-              "
-              >OK</v-btn
-            >
-          </v-date-picker>
-        </v-dialog>
-      </v-col>
-    </v-row>
+    <v-progress-linear v-if="!loaded" indeterminate></v-progress-linear>
+    <div v-if="loaded">
+      <v-row>
+        <h3 style="color: #1592E6">PRODUCTIVITY</h3>
+      </v-row>
+      <v-row align="center" justify="center">
+        <v-col cols="12" md="4">
+          <v-dialog
+            ref="dialog"
+            v-model="modal"
+            :return-value.sync="date"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="date"
+                label="Pick date"
+                prepend-icon="mdi-calendar"
+                readonly
+                light
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="date" scrollable light>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+              <v-btn
+                text
+                color="primary"
+                @click="
+                  $refs.dialog.save(date)
+                  chooseDate()
+                "
+                >OK</v-btn
+              >
+            </v-date-picker>
+          </v-dialog>
+        </v-col>
+      </v-row>
 
-    <v-row align="center" justify="center">
-      <ChartDoughnut />
-    </v-row>
-    <v-row class="mt-5">
-      <!-- <a @click="pm = true">BACK</a> -->
-      <v-col cols="12">
-        <v-card light flat>
-          <v-row>
-            <v-col align="center" justify="center">
-              Productive Apps
-              <v-card class="ma-5" color="#cbcbcb" flat>
-                <v-row
-                  v-for="appdatas in appdata.productive"
-                  :key="appdatas.name"
-                >
-                  <v-col>
-                    <v-card-text>{{ appdatas.name }}</v-card-text>
-                  </v-col>
-                  <v-col>
-                    <v-card-text>{{ appdatas.duration }}</v-card-text>
-                  </v-col>
-                </v-row>
-              </v-card>
-            </v-col>
-            <v-col align="center" justify="center">
-              Non-Productive Apps
-              <v-card class="ma-5" color="#cbcbcb" flat>
-                <v-row
-                  v-for="appdatas in appdata.not_productive"
-                  :key="appdatas.name"
-                >
-                  <v-col>
-                    <v-card-text>{{ appdatas.name }}</v-card-text>
-                  </v-col>
-                  <v-col>
-                    <v-card-text>{{ appdatas.duration }}</v-card-text>
-                  </v-col>
-                </v-row>
-              </v-card>
-            </v-col>
-            <v-col align="center" justify="center">
-              Neutral Apps
-              <v-card class="ma-5" color="#cbcbcb" flat>
-                <v-row v-for="appdatas in appdata.netral" :key="appdatas.name">
-                  <v-col>
-                    <v-card-text>{{ appdatas.name }}</v-card-text>
-                  </v-col>
-                  <v-col>
-                    <v-card-text>{{ appdatas.duration }}</v-card-text>
-                  </v-col>
-                </v-row>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-card>
-      </v-col>
-    </v-row>
+      <v-row align="center" justify="center">
+        <ChartDoughnut />
+      </v-row>
+      <v-row class="mt-5">
+        <!-- <a @click="pm = true">BACK</a> -->
+        <v-col cols="12">
+          <v-card light flat>
+            <v-row>
+              <v-col align="center" justify="center">
+                Productive Apps
+                <v-card class="ma-5" color="#cbcbcb" flat>
+                  <v-row
+                    v-for="appdatas in appdata.productive"
+                    :key="appdatas.name"
+                  >
+                    <v-col>
+                      <v-card-text>{{ appdatas.name }}</v-card-text>
+                    </v-col>
+                    <v-col>
+                      <v-card-text>{{ appdatas.duration }}</v-card-text>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+              <v-col align="center" justify="center">
+                Non-Productive Apps
+                <v-card class="ma-5" color="#cbcbcb" flat>
+                  <v-row
+                    v-for="appdatas in appdata.not_productive"
+                    :key="appdatas.name"
+                  >
+                    <v-col>
+                      <v-card-text>{{ appdatas.name }}</v-card-text>
+                    </v-col>
+                    <v-col>
+                      <v-card-text>{{ appdatas.duration }}</v-card-text>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+              <v-col align="center" justify="center">
+                Neutral Apps
+                <v-card class="ma-5" color="#cbcbcb" flat>
+                  <v-row
+                    v-for="appdatas in appdata.netral"
+                    :key="appdatas.name"
+                  >
+                    <v-col>
+                      <v-card-text>{{ appdatas.name }}</v-card-text>
+                    </v-col>
+                    <v-col>
+                      <v-card-text>{{ appdatas.duration }}</v-card-text>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
 </template>
 <script>
@@ -164,15 +170,13 @@ export default {
   methods: {
     chooseDate() {
       this.$axios
-        .post('daily-scrum-report/list', {
-          id: localStorage.getItem('team_id'),
+        .post('daily-tracking-report/overal-per-user', {
           date: this.date
         })
         .then((response) => {
-          this.reports = response.data.data
-          console.log(response.data)
+          this.appdata = response.data.data.app
         })
-        .catch(function(error) {
+        .catch((error) => {
           console.log(error)
         })
     },
@@ -183,8 +187,7 @@ export default {
         })
         .then((response) => {
           this.appdata = response.data.data.app
-          console.log(response)
-          console.log(this.appdata)
+          this.loaded = true
         })
         .catch((error) => {
           console.log(error)

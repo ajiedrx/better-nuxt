@@ -72,9 +72,7 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>{{ currentTeam.room_name }}</v-list-item-title>
-            <v-list-item-subtitle>
-              {{ countMembers }}
-            </v-list-item-subtitle>
+            <v-list-item-subtitle> Members : {{ total }} </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -185,6 +183,7 @@ export default {
       frontend: [],
       backend: [],
       counts: [],
+      total: 0,
       members: [
         // {
         //   name: 'Daegal P',
@@ -244,19 +243,19 @@ export default {
           title: 'Reward'
         },
         {
-          icon: 'mdi-chat',
-          to: '/chat',
-          title: 'Chat'
-        },
-        {
-          icon: 'mdi-clock',
-          to: '/timeconsume',
-          title: 'Time Consume'
-        },
-        {
           icon: 'mdi-timer',
           to: '/productivity',
           title: 'Productivity'
+        },
+        {
+          icon: '',
+          to: '',
+          title: ''
+        },
+        {
+          icon: '',
+          to: '',
+          title: ''
         },
         {
           icon: '',
@@ -307,6 +306,7 @@ export default {
           this.backend = response.data.data.backend
           this.frontend = response.data.data.frontend
           this.counts = response.data.data.count
+          this.sumMembers()
           console.log(response.data.data)
           // this.members = response.data.data
           // this.manager = this.members[0].user[0]
@@ -326,8 +326,10 @@ export default {
           // this.currentTeam = response.data.data
         })
     },
-    countMembers(){
-      return this.counts.uiux+this.counts.frontend+this.counts.backend+1
+    sumMembers() {
+      this.total += this.counts.frontend
+      this.total += this.counts.uiux
+      this.total += this.counts.backend
     }
   }
 }

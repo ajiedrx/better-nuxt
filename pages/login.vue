@@ -33,7 +33,16 @@
                 </v-form>
               </v-card-text>
               <v-card-actions class="justify-center">
+                <v-progress-circular
+                  v-if="checkLogin"
+                  indeterminate
+                  color="primary"
+                ></v-progress-circular>
+                <v-card-text v-if="falsePassword" class="red"
+                  >Email/Password didn't match</v-card-text
+                >
                 <v-btn
+                  v-if="loginButton"
                   class="align-self-center"
                   color="#2D9CDB"
                   style="width: 95%"
@@ -42,6 +51,11 @@
                   Login
                 </v-btn>
               </v-card-actions>
+              <v-card-text
+                class="text-center"
+                @click="this.$router.push('/signup')"
+                >Don't have an account? <span>Register</span></v-card-text
+              >
             </v-card>
           </v-col>
         </v-row>
@@ -53,11 +67,17 @@
 <script>
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 export default {
+  /* eslint-disable */
   data() {
     return {
+      email: '',
+      password: '',
       usertoken: '',
       drawer: null,
       value: true,
+      checkLogin: false,
+      falsePassword: false,
+      loginButton: true,
       // rules: {
       //   required: (value) =>
       //     value === !value || 'Email or Password did not match.',
@@ -84,6 +104,8 @@ export default {
   layout: 'auth',
   methods: {
     formSubmit(e) {
+      this.checkLogin = true
+      this.loginButton = false
       this.$auth
         .loginWith('local', {
           data: {
@@ -95,7 +117,8 @@ export default {
           if (this.$auth.loggedIn) {
             this.$router.push('/')
           } else {
-            this.rules.emailPasswordMatch(false)
+            this.checkLogin = false
+            this.falsePassword = true
           }
         })
       // e.preventDefault()

@@ -38,7 +38,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-
     <v-app-bar clipped-left fixed app dark color="#FFFFFF">
       <v-app-bar-nav-icon
         class="hidden-sm-and-up"
