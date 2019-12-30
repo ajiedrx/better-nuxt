@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-dialog v-model="dialog" max-width="600px">
         <v-card light>
           <v-card-title class="justify-center">
             <span class="headline">Daily Report</span>
@@ -169,20 +169,7 @@ export default {
     }
   },
   mounted() {
-    this.$axios
-      .post('daily-scrum-report/check', {
-        // id_team: this.$store.state.idTeam
-        id_team: localStorage.getItem('team_id')
-      })
-      .then((response) => {
-        console.log(response.data)
-        if (response.data.message === 'sudah mengisi data hari ini') {
-          this.dialog = false
-        } else this.dialog = true
-      })
-      .catch(function(error) {
-        console.log(error)
-      })
+    this.dailyReportCheck()
   },
   methods: {
     submitDailyReport() {
@@ -197,6 +184,22 @@ export default {
           // this.$store.commit('SET_USER_TOKEN', response.data.success.token)
           console.log(response.data)
           // this.usertoken = 'Bearer ' + this.$store.state.token
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    },
+    dailyReportCheck() {
+      this.$axios
+        .post('daily-scrum-report/check', {
+          // id_team: this.$store.state.idTeam
+          id_team: localStorage.getItem('team_id')
+        })
+        .then((response) => {
+          console.log(response.data)
+          if (response.data.message === 'sudah mengisi data hari ini') {
+            this.dialog = false
+          } else this.dialog = true
         })
         .catch(function(error) {
           console.log(error)

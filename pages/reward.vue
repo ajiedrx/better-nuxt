@@ -25,8 +25,14 @@
         >
           <v-container fill-height text-center>
             <v-layout align-center>
-              <v-flex class="display-1">REWARD</v-flex>
+              <v-flex class="display-4">978</v-flex>
             </v-layout>
+            <!-- <v-row class="my-0" align="center" justify="center" dense>
+              <div class="text-center display-2">Productivity Point</div>
+            </v-row>
+            <v-row class="my-0" align="center" justify="center" dense>
+              <div class="text-center display-3">867</div>
+            </v-row> -->
           </v-container>
         </v-card>
       </v-col>

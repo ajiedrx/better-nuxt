@@ -193,21 +193,24 @@ export default {
   }),
   mounted() {
     this.loadDailyCompletion()
-    this.$axios
-      .post('daily-scrum-report/list', {
-        id: localStorage.getItem('team_id'),
-        date: new Date().toISOString().substr(0, 10)
-      })
-      .then((response) => {
-        this.reports = response.data.data
-        console.log(response.data)
-        this.loaded = true
-      })
-      .catch(function(error) {
-        console.log(error)
-      })
+    this.loadDailyReportList()
   },
   methods: {
+    loadDailyReportList() {
+      this.$axios
+        .post('daily-scrum-report/list', {
+          id: localStorage.getItem('team_id'),
+          date: new Date().toISOString().substr(0, 10)
+        })
+        .then((response) => {
+          this.reports = response.data.data
+          console.log(response.data)
+          this.loaded = true
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    },
     chooseDate() {
       this.$axios
         .post('daily-scrum-report/list', {

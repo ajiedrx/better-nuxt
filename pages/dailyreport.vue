@@ -89,24 +89,7 @@ export default {
       date: new Date().toISOString().substr(0, 10),
       modal: false,
       loaded: false,
-      reports: [
-        // {
-        //   avatar: '',
-        //   name: 'Ajie DR',
-        //   time: '23.09',
-        //   done: 'Chat feature',
-        //   plan: 'Fixing dashboard',
-        //   obstacle: '-'
-        // },
-        // {
-        //   avatar: '',
-        //   name: 'Daegal P',
-        //   time: '21.45',
-        //   done: 'Fixed some apis',
-        //   plan: 'Fixing another apis',
-        //   obstacle: '-'
-        // }
-      ]
+      reports: []
     }
   },
   mounted() {

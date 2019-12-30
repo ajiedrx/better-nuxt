@@ -37,6 +37,7 @@
                   v-if="checkLogin"
                   indeterminate
                   color="primary"
+                  width="3"
                 ></v-progress-circular>
                 <v-card-text v-if="falsePassword" class="red"
                   >Email/Password didn't match</v-card-text
@@ -51,11 +52,12 @@
                   Login
                 </v-btn>
               </v-card-actions>
-              <v-card-text
-                class="text-center"
-                @click="this.$router.push('/signup')"
-                >Don't have an account? <span>Register</span></v-card-text
-              >
+              <v-card-text class="text-center" @click.stop="pushRegister">
+                <v-row class="justify-center">
+                  Don't have an account?
+                  <a class="ml-1" style="color: #2092e3">Register</a>
+                </v-row>
+              </v-card-text>
             </v-card>
           </v-col>
         </v-row>
@@ -103,6 +105,9 @@ export default {
   // },
   layout: 'auth',
   methods: {
+    pushRegister(){
+      this.$router.push('/signup')
+    },
     formSubmit(e) {
       this.checkLogin = true
       this.loginButton = false

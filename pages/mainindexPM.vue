@@ -13,8 +13,10 @@
           <v-card-title append-icon="mdi-gifts"
             >Productivity Ratio</v-card-title
           >
-          <v-card-text class="text-center"><h1>96</h1></v-card-text>
-          <v-card-text>In percentage</v-card-text>
+          <v-card-text class="text-center"
+            ><h1>{{ Math.ceil(productivityAvg) }} %</h1></v-card-text
+          >
+          <v-card-text>Team Productivity Average</v-card-text>
         </v-card>
       </v-col>
       <v-col>
@@ -27,23 +29,21 @@
         </v-card>
       </v-col>
     </v-row>
-    <client-only>
-      <v-row id="chart">
-        <v-col cols="12">
-          <v-card light flat style="border-radius: 10px">
-            <v-card-title>Productivity Chart</v-card-title>
-            <v-sparkline
-              :labels="labels"
-              :value="value"
-              line-width="2"
-              padding="16"
-              auto-draw
-            >
-            </v-sparkline>
-          </v-card>
-        </v-col>
-      </v-row>
-    </client-only>
+    <v-row id="chart">
+      <v-col cols="12">
+        <v-card light flat style="border-radius: 10px">
+          <v-card-title>Team Productivity Chart</v-card-title>
+          <v-sparkline
+            :labels="labels"
+            :value="value"
+            line-width="2"
+            padding="16"
+            show-labels="showLabels"
+          >
+          </v-sparkline>
+        </v-card>
+      </v-col>
+    </v-row>
     <v-row id="lastRow">
       <v-col>
         <v-card light flat style="border-radius: 10px">
@@ -110,9 +110,34 @@
 export default {
   middleware: ['auth'],
   layout: 'mainPM',
-  data: () => ({
-    labels: ['12am', '3am', '6am', '9am', '12pm', '3pm', '6pm', '9pm'],
-    value: [200, 675, 410, 390, 310, 460, 250, 240]
-  })
+  data() {
+    return {
+      labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+      value: [],
+      productivityAvg: 0
+    }
+  },
+  mounted() {
+    this.loadProductivityChart()
+  },
+  methods: {
+    loadProductivityChart() {
+      this.$axios
+        .post('daily-tracking-report/history-per-team', {
+          id_team: localStorage.getItem('team_id')
+        })
+        .then((response) => {
+          // for (let i = 0; i < response.data.data.length; i++) {
+          //   this.value[i] = response.data.data[i]
+          // }
+          this.value = response.data.data
+          this.productivityAvg = response.data.average
+          console.log(this.value)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    }
+  }
 }
 </script>
