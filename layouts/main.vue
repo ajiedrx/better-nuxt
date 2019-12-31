@@ -174,53 +174,12 @@ export default {
       sheet: false,
       manager: [],
       currentTeam: [],
-      // currentUserProps: {
-      //   name: 'Username',
-      //   email: 'Email',
-      //   avatar: ''
-      // },
       uiux: [],
       frontend: [],
       backend: [],
       counts: [],
       total: 0,
-      members: [
-        // {
-        //   name: 'Daegal P',
-        //   to: '/profileMain',
-        //   status: true
-        // },
-        // {
-        //   name: 'Ajie DR',
-        //   to: '/',
-        //   status: true
-        // },
-        // {
-        //   name: 'Aldi Izzaldi',
-        //   to: '/',
-        //   status: true
-        // },
-        // {
-        //   name: 'Sherly Maya',
-        //   to: '/',
-        //   status: false
-        // },
-        // {
-        //   name: 'Astin IC',
-        //   to: '/',
-        //   status: true
-        // },
-        // {
-        //   name: 'M Aliffiansyah',
-        //   to: '/',
-        //   status: false
-        // },
-        // {
-        //   name: 'Wifda Muna',
-        //   to: '/',
-        //   status: true
-        // }
-      ],
+      members: [],
       items: [
         {
           icon: 'mdi-home',
@@ -238,14 +197,14 @@ export default {
           title: 'Daily Report'
         },
         {
-          icon: 'mdi-gift',
-          to: '/reward',
-          title: 'Reward'
-        },
-        {
           icon: 'mdi-timer',
           to: '/productivity',
           title: 'Productivity'
+        },
+        {
+          icon: '',
+          to: '',
+          title: ''
         },
         {
           icon: '',

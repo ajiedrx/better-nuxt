@@ -11,7 +11,6 @@
             ref="dialog"
             v-model="modal"
             :return-value.sync="date"
-            persistent
             width="290px"
           >
             <template v-slot:activator="{ on }">
@@ -171,7 +170,8 @@ export default {
     chooseDate() {
       this.$axios
         .post('daily-tracking-report/overal-per-user', {
-          date: this.date
+          date: this.date,
+          id: localStorage.getItem('user_id')
         })
         .then((response) => {
           this.appdata = response.data.data.app
@@ -183,7 +183,8 @@ export default {
     getAppData() {
       this.$axios
         .post('daily-tracking-report/overal-per-user', {
-          date: '2019-12-02'
+          date: '2019-12-31',
+          id: localStorage.getItem('user_id')
         })
         .then((response) => {
           this.appdata = response.data.data.app
@@ -193,38 +194,6 @@ export default {
           console.log(error)
         })
     }
-    // loadChartData() {
-    //   this.$axios
-    //     .post('daily-tracking-report/overal-per-user', {
-    //       date: '2019-11-27'
-    //     })
-    //     .then((response) => {
-    //       // console.log(response.data.data.value)
-    //       this.datachart = response.data.data.value
-    //       // console.log(this.datasets.data)
-    //       this.dataCollection = {
-    //         labels: ['Productive', 'Neutral', 'Unproductive'],
-    //         datasets: [
-    //           {
-    //             label: ['Productivity Chart'],
-    //             backgroundColor: ['#f36e60', '#ffdb3b', '#185190'],
-    //             data: [this.datachart]
-    //           }
-    //         ]
-    //       }
-    //       console.log(response)
-    //       this.loaded = true
-    //       // this.datasets.data[0] = response.data.data.value.productive_value
-    //       // this.datasets.data[1] = response.data.data.value.netral_value
-    //       // this.datasets.data[2] = response.data.data.value.not_productive_value
-    //       // this.datasets.data = response.data.data.value
-    //       // console.log(this.datasets.data)
-    //       // this.datasets.data = response.data.value
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // }
   }
 }
 </script>

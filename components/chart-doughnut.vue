@@ -77,14 +77,16 @@ export default {
         }
       ],
       labels: ['Unproductive', 'Neutral', 'Productive'],
-      option: {}
+      option: {},
+      date: new Date().toISOString().substr(0, 10)
     }
   },
   methods: {
     loadChartData() {
       this.$axios
         .post('daily-tracking-report/overal-per-user', {
-          date: '2019-12-02'
+          date: this.date,
+          id: localStorage.getItem('user_id')
         })
         .then((response) => {
           // console.log(response.data.data.value)

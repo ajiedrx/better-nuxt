@@ -119,6 +119,7 @@ export default {
           }
         })
         .then((response) => {
+          localStorage.setItem('user_id', this.$auth.user.id)
           if (this.$auth.loggedIn) {
             this.$router.push('/')
           } else {
