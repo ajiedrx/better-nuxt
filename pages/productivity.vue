@@ -41,7 +41,7 @@
       </v-row>
 
       <v-row align="center" justify="center">
-        <ChartDoughnut />
+        <ChartDoughnut v-if="chart" />
       </v-row>
       <v-row class="mt-5">
         <!-- <a @click="pm = true">BACK</a> -->
@@ -112,12 +112,15 @@ export default {
       loaded: false,
       dataCollection: [],
       datachart: [],
+      chart: false,
       appdata: [],
+      array: [],
       date: new Date().toISOString().substr(0, 10)
     }
   },
   mounted() {
     this.getAppData()
+    this.loadChartData()
   },
   methods: {
     chooseDate() {
@@ -128,6 +131,23 @@ export default {
         })
         .then((response) => {
           this.appdata = response.data.data.app
+          this.chart = false
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      this.$axios
+        .post('daily-tracking-report/overal-per-user', {
+          date: this.date,
+          id: localStorage.getItem('user_id')
+        })
+        .then((response) => {
+          this.array = response.data.data.value
+          this.$store.commit('SET_PRODUCTIVE', this.array[0])
+          this.$store.commit('SET_UNPRODUCTIVE', this.array[2])
+          this.$store.commit('SET_NEUTRAL', this.array[1])
+          this.loaded = true
+          this.chart = true
         })
         .catch((error) => {
           console.log(error)
@@ -136,7 +156,7 @@ export default {
     getAppData() {
       this.$axios
         .post('daily-tracking-report/overal-per-user', {
-          date: '2019-12-31',
+          date: this.date,
           id: localStorage.getItem('user_id')
         })
         .then((response) => {
@@ -146,6 +166,28 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+    },
+    loadChartData() {
+      this.$axios
+        .post('daily-tracking-report/overal-per-user', {
+          date: this.date,
+          id: localStorage.getItem('user_id')
+        })
+        .then((response) => {
+          this.array = response.data.data.value
+          console.log(this.array)
+          this.loaded = true
+          this.$store.commit('SET_PRODUCTIVE', this.array[0])
+          this.$store.commit('SET_UNPRODUCTIVE', this.array[2])
+          this.$store.commit('SET_NEUTRAL', this.array[1])
+          console.log(this.$store.state.productive)
+          console.log(this.$store.state.neutral)
+          console.log(this.$store.state.unproductive)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      this.chart = true
     }
   }
 }

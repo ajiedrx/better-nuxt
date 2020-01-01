@@ -23,5 +23,14 @@ export default {
   },
   [types.SET_ID_MANAGER]: (state, payload) => {
     state.idManager = payload
+  },
+  [types.SET_PRODUCTIVE]: (state, payload) => {
+    state.productive = payload
+  },
+  [types.SET_UNPRODUCTIVE]: (state, payload) => {
+    state.unproductive = payload
+  },
+  [types.SET_NEUTRAL]: (state, payload) => {
+    state.neutral = payload
   }
 }

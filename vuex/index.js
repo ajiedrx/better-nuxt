@@ -17,7 +17,10 @@ const state = () => ({
   role: null,
   idManager: null,
   token: null,
-  pmFlag: null
+  pmFlag: null,
+  productive: null,
+  unproductive: null,
+  neutral: null
 })
 export default {
   state,
