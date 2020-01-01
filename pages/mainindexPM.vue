@@ -105,19 +105,17 @@
         <v-col>
           <v-card light flat style="border-radius: 10px">
             <v-card-text class="text-center" style="border-radius: 10px">
-              <div>Most Productive Application</div>
+              <div>Most Productive Member</div>
               <v-row class="justify-center">
-                <div>mostProductiveApp.name</div>
-                <div class="ml-5">mostProductiveApp.duration</div>
+                <div>{{ mostProductiveUser.user.name }}</div>
               </v-row>
             </v-card-text>
           </v-card>
           <v-card class="mt-4" light flat style="border-radius: 10px">
             <v-card-text class="text-center" style="border-radius: 10px">
-              <div>Most Unproductive Application</div>
+              <div>Most Unproductive Member</div>
               <v-row class="justify-center">
-                <div>mostUnproductiveApp.name</div>
-                <div class="ml-5">MostUnproductiveApp.duration</div>
+                <div>{{ mostUnproductiveUser.user.name }}</div>
               </v-row>
             </v-card-text>
           </v-card>
@@ -190,7 +188,10 @@ export default {
       chartLoaded: false,
       managerLoaded: false,
       dailyReportStatus: false,
-      totalTime: 0
+      totalTime: 0,
+      mostProductiveUser: [],
+      mostUnproductiveUser: [],
+      userRank: []
     }
   },
   mounted() {
@@ -207,7 +208,9 @@ export default {
           date: new Date().toISOString().substr(0, 10)
         })
         .then((response) => {
-          console.log(response.data)
+          this.userRank = response.data.data
+          this.mostProductiveUser = this.userRank[this.userRank.length - 1]
+          this.mostUnproductiveUser = response.data.data[0]
         })
         .catch(function(error) {
           console.log(error)

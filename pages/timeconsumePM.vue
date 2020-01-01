@@ -98,7 +98,7 @@ export default {
         { text: 'Productive (%)', value: 'value.productive_value' },
         { text: 'Unproductive (%)', value: 'value.not_productive_value' },
         { text: 'Neutral (%)', value: 'value.netral_value' },
-        { text: 'Duration', value: 'duration' },
+        { text: 'Duration (seconds)', value: 'time_consumed' },
         { text: 'Actions', value: 'action', sortable: false }
       ],
       appdata: [],
@@ -118,6 +118,7 @@ export default {
         .then((response) => {
           this.tableData = response.data.data
           this.loaded = true
+          console.log(response.data)
         })
         .catch((error) => {
           console.log(error)
