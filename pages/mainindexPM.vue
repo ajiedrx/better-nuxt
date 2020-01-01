@@ -1,61 +1,61 @@
 <template>
   <v-container>
+    <v-row justify="center">
+      <v-dialog v-model="dialog" max-width="600px">
+        <v-card light>
+          <v-card-title class="justify-center">
+            <span class="headline">Daily Report</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="last_24_hour_activities"
+                    label="Done"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="next_24_hour_activities"
+                    label="Plan"
+                    type="text"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="obstacles"
+                    label="Obstacle"
+                    type="text"
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              class="text-center"
+              color="blue darken-1"
+              text
+              @click="
+                dialog = false
+                submitDailyReport()
+              "
+              >SUBMIT</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
     <v-progress-linear
       v-if="!chartLoaded || !managerLoaded"
       indeterminate
     ></v-progress-linear>
     <div v-else>
-      <v-row justify="center">
-        <v-dialog v-model="dialog" max-width="600px">
-          <v-card light>
-            <v-card-title class="justify-center">
-              <span class="headline">Daily Report</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field
-                      v-model="last_24_hour_activities"
-                      label="Done"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                      v-model="next_24_hour_activities"
-                      label="Plan"
-                      type="text"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                      v-model="obstacles"
-                      label="Obstacle"
-                      type="text"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                class="text-center"
-                color="blue darken-1"
-                text
-                @click="
-                  dialog = false
-                  submitDailyReport()
-                "
-                >SUBMIT</v-btn
-              >
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-row>
       <v-row id="firstRow">
         <v-col>
           <v-card light hover flat style="border-radius: 10px">
@@ -95,7 +95,7 @@
               line-width="2"
               padding="16"
               label-size="4"
-              show-labels="showLabels"
+              show-labels
             >
             </v-sparkline>
           </v-card>

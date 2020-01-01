@@ -40,7 +40,7 @@
           </v-dialog>
         </v-col>
       </v-row>
-      <v-row dense>
+      <v-row v-if="!emptyData" dense>
         <v-col v-for="report in reports" :key="report.daily.id" cols="12">
           <v-card class="pb-3 pl-2 mx-5" min-height="150" light>
             <v-row class="ml-2" align="center" dense no-gutters>
@@ -77,6 +77,13 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-row v-else class="justify-center">
+        <v-col cols="12">
+          <v-card light flat tile>
+            <v-card-text class="text-center">No data to display</v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
     </div>
   </v-container>
 </template>
@@ -86,6 +93,7 @@ export default {
   layout: 'main',
   data() {
     return {
+      emptyData: false,
       date: new Date().toISOString().substr(0, 10),
       modal: false,
       loaded: false,
@@ -100,6 +108,9 @@ export default {
       })
       .then((response) => {
         this.reports = response.data.data
+        if (this.reports.length === 0) {
+          this.emptyData = true
+        }
         console.log(response.data)
         this.loaded = true
       })
@@ -116,6 +127,9 @@ export default {
         })
         .then((response) => {
           this.reports = response.data.data
+          if (this.reports.length === 0) {
+            this.emptyData = true
+          }
           console.log(response.data)
         })
         .catch(function(error) {

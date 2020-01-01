@@ -5,7 +5,41 @@
       <v-row>
         <h3 style="color: #1592E6">TIME CONSUME</h3>
       </v-row>
-      <DatepickerComponent />
+      <v-row align="center" justify="center">
+        <v-col cols="12" md="4">
+          <v-dialog
+            ref="dialog"
+            v-model="modal"
+            :return-value.sync="date"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="date"
+                label="Pick date"
+                prepend-icon="mdi-calendar"
+                readonly
+                light
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="date" scrollable light>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+              <v-btn
+                text
+                color="primary"
+                @click="
+                  $refs.dialog.save(date)
+                  chooseDate()
+                "
+                >OK</v-btn
+              >
+            </v-date-picker>
+          </v-dialog>
+        </v-col>
+      </v-row>
 
       <v-row v-if="!pm">
         <a @click="pm = true">BACK</a>
@@ -98,21 +132,50 @@ export default {
         { text: 'Productive (%)', value: 'value.productive_value' },
         { text: 'Unproductive (%)', value: 'value.not_productive_value' },
         { text: 'Neutral (%)', value: 'value.netral_value' },
-        { text: 'Duration (seconds)', value: 'time_consumed' },
+        { text: 'Duration (hour)', value: 'time_consumed' },
         { text: 'Actions', value: 'action', sortable: false }
       ],
       appdata: [],
-      tableData: []
+      tableData: [],
+      date: new Date().toISOString().substr(0, 10),
+      idUser: 0
     }
   },
   mounted() {
     this.loadTableData()
   },
   methods: {
+    chooseDate() {
+      this.$axios
+        .post('daily-tracking-report/overal-per-member-team', {
+          date: this.date,
+          id_team: localStorage.getItem('team_id')
+        })
+        .then((response) => {
+          this.tableData = response.data.data
+          this.loaded = true
+          console.log(response.data)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+      this.$axios
+        .post('daily-tracking-report/overal-per-user', {
+          date: this.date,
+          id: this.idUser
+        })
+        .then((response) => {
+          this.appdata = response.data.data.app
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     loadTableData() {
       this.$axios
         .post('daily-tracking-report/overal-per-member-team', {
-          date: '2019-12-02',
+          date: this.date,
           id_team: localStorage.getItem('team_id')
         })
         .then((response) => {
@@ -124,14 +187,15 @@ export default {
           console.log(error)
         })
     },
-    getAppData(iduser) {
+    getAppData(idUser) {
       this.$axios
         .post('daily-tracking-report/overal-per-user', {
-          date: '2019-12-02',
-          id: iduser
+          date: this.date,
+          id: idUser
         })
         .then((response) => {
           this.appdata = response.data.data.app
+          console.log(response)
         })
         .catch((error) => {
           console.log(error)
@@ -140,7 +204,9 @@ export default {
     itemDetails(item) {
       this.editedItem = Object.assign({}, item)
       this.getAppData(this.editedItem.user.id)
+      this.idUser = this.editedItem.user.id
       this.pm = false
+      this.editedItem = null
     }
     // watch() {
     //   return {

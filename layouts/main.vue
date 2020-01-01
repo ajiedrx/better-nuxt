@@ -232,9 +232,9 @@ export default {
           title: ''
         },
         {
-          icon: 'mdi-settings',
-          to: '/settings',
-          title: 'Settings'
+          icon: '',
+          to: '',
+          title: ''
         },
         {
           icon: 'mdi-exit-to-app',

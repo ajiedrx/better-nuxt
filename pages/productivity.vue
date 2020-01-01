@@ -111,59 +111,12 @@ export default {
     return {
       loaded: false,
       dataCollection: [],
-      // datasets: [
-      //   {
-      //     data: [],
-      //     backgroundColor: ['#f36e60', '#ffdb3b', '#185190'],
-      //     hoverBackgroundColor: ['#fbd2cd', '#fef5c9', '#d1e3f7']
-      //   }
-      // ],
-      // labels: ['Productive', 'Unproductive', 'Neutral'],
-      // option: { responsive: true },
       datachart: [],
       appdata: [],
       date: new Date().toISOString().substr(0, 10)
     }
   },
-  // watch: {
-  //   chartData() {
-  //     this.$data._chart.update()
-  //   }
-  // },
-  // async asyncData({ env }) {
-  //   const res = await axios.post('daily-tracking-report/overal-per-user', {
-  //     date: '2019-11-27'
-  //   })
-  //   return {
-  //     datasets: [
-  //       {
-  //         data: [res.data.data.value],
-  //         backgroundColor: ['#f36e60', '#ffdb3b', '#185190'],
-  //         hoverBackgroundColor: ['#fbd2cd', '#fef5c9', '#d1e3f7']
-  //       }
-  //     ],
-  //     labels: ['Productive', 'Unproductive', 'Neutral'],
-  //     option: { responsive: true }
-  //   }
-  // },
-  // async mounted() {
-  //   this.loaded = false
-  //   try {
-  //     const { datasets } = await this.$axios.post(
-  //       'daily-tracking-report/overal-per-user',
-  //       {
-  //         date: '2019-11-27'
-  //       }
-  //     )
-  //     this.datasets.data = datasets
-  //     this.loaded = true
-  //     console.log(this.datasets.data)
-  //   } catch (e) {
-  //     console.error(e)
-  //   }
-  // },
   mounted() {
-    // this.loadChartData()
     this.getAppData()
   },
   methods: {

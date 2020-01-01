@@ -55,7 +55,7 @@
 
         <v-tabs-items v-model="tab">
           <v-tab-item :value="'tab-' + 1">
-            <v-card light flat tile>
+            <v-card v-if="!emptyData" light flat tile>
               <v-row dense>
                 <v-col
                   v-for="report in reports"
@@ -100,6 +100,9 @@
                 </v-col>
               </v-row>
             </v-card>
+            <v-card light flat tile v-else>
+              <v-card-text class="text-center">No data to display</v-card-text>
+            </v-card>
           </v-tab-item>
           <v-tab-item :value="'tab-' + 2">
             <v-card light flat tile>
@@ -133,6 +136,7 @@ export default {
     detail: true,
     reports: [],
     completion: [],
+    emptyData: true,
     headers: [
       {
         text: 'Name',
@@ -142,48 +146,6 @@ export default {
       },
       { text: 'Date/Time', value: 'user_detail.created_at' },
       { text: 'Status', value: 'status' }
-    ],
-    desserts: [
-      {
-        name: 'Wifda Muna',
-        date: '26/10/19',
-        time: '14.00',
-        status: 'COMPLETED',
-        protein: 4.0,
-        iron: '1%'
-      },
-      {
-        name: 'Sherly Maya',
-        date: '26/10/19',
-        time: '12.00',
-        status: 'COMPLETED',
-        protein: 4.0,
-        iron: '1%'
-      },
-      {
-        name: 'Daegal Prayoga',
-        date: '26/10/19',
-        time: '14.05',
-        status: 'COMPLETED',
-        protein: 4.0,
-        iron: '1%'
-      },
-      {
-        name: 'Adli Izzaldi',
-        date: '26/10/19',
-        time: '13.00',
-        status: 'COMPLETED',
-        protein: 4.0,
-        iron: '1%'
-      },
-      {
-        name: 'Ajie DR',
-        date: '26/10/19',
-        time: '13.05',
-        status: 'COMPLETED',
-        protein: 4.0,
-        iron: '1%'
-      }
     ],
     itemDetails(item) {
       this.editedIndex = this.desserts.indexOf(item)
@@ -204,6 +166,9 @@ export default {
         })
         .then((response) => {
           this.reports = response.data.data
+          if (this.reports.length === 0) {
+            this.emptyData = true
+          }
           console.log(response.data)
           this.loaded = true
         })
